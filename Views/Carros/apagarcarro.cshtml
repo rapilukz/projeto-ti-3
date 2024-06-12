@@ -1,0 +1,64 @@
+﻿@model Maio11_Best.Models.carro
+
+@{
+    ViewBag.Title = "apagarcarro";
+}
+
+<h2>apagarcarro</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>carro</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.modelo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.modelo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.phora)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.phora)
+        </dd>
+
+        <dt>
+           Foto
+        </dt>
+
+        <dd>
+            @if (Model.fotopath == null || String.IsNullOrEmpty(Model.fotopath))
+            {
+                <img width="120" src="@Url.Content("~/fotos/nocar.png")" alt="" />
+            }
+            else
+            {
+                <img width="120" src="@Url.Content("~/fotos/" +  Model.fotopath)" alt="" />
+
+            }
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.marca)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.marca)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-danger m-3" /> |
+            @Html.ActionLink("Back to List", "ListaCarros")
+        </div>
+    }
+</div>

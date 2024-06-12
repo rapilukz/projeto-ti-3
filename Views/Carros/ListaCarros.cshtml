@@ -1,0 +1,79 @@
+﻿@model IEnumerable<Maio11_Best.Models.v_carros>
+
+@{
+    ViewBag.Title = "ListaCarros";
+}
+
+<h2>ListaCarros</h2>
+<h3 class="text-danger">@ViewBag.msg</h3>
+
+<p>
+    @Html.ActionLink("Create New", "inserircarro", null, new { @class = "btn btn-primary" })
+</p>
+<table class="table table-responsive table-bordered table-striped table-primary">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.idcar)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.modelo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.phora)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.marca)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fotopath)
+        </th>
+        <th>
+            alugueres
+        </th>
+        <th>comandos</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.idcar)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.modelo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.phora)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.marca)
+            </td>
+            <td>
+                @if (item.fotopath == null || String.IsNullOrEmpty(item.fotopath))
+                {
+                    <img width="70" src="@Url.Content("~/fotos/nocar.png")" alt="" />
+                }
+                else
+                {
+                    <img width="70" src="@Url.Content("~/fotos/" +  item.fotopath)" alt="" />
+
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.total)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "editarcarro", new { id=item.idcar }, new {@class ="btn btn-primary"}) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ })
+                @if (item.total == null)
+                {
+                    @("| ") @Html.ActionLink("Delete", 
+                                   "apagarcarro", new { id=item.idcar }, 
+                                   new {@class="btn btn-primary"})
+                }
+
+            </td>
+        </tr>
+    }
+
+</table>
