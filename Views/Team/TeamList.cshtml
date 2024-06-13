@@ -1,15 +1,15 @@
 ﻿@model IEnumerable<Maio11_Best.Models.Team>
 
 @{
-    ViewBag.Title = "TeamList";
+    ViewBag.Title = "Teams";
 }
 
-<h2>TeamList</h2>
+<h2>Teams</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create", null , new { @class="btn btn-primary" })
 </p>
-<table class="table table-responsive table-bordered table-striped table-primary">
+<table class="table table-responsive table-bordered table-striped">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.team_id)

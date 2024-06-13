@@ -4,12 +4,12 @@
     ViewBag.Title = "TrainerList";
 }
 
-<h2>TrainerList</h2>
+<h2>Trainers</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
 </p>
-<table class="table">
+<table class="table table-responsive table-bordered table-striped">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.trainer_name)
