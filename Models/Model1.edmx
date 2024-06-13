@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ProjetoBDModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ProjetoBDModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="players">
           <Key>
             <PropertyRef Name="player_id" />
@@ -14,6 +14,7 @@
           <Property Name="position" Type="varchar" MaxLength="50" />
           <Property Name="birthdate" Type="date" />
           <Property Name="team_id" Type="int" />
+          <Property Name="photo_path" Type="varchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="Teams">
           <Key>
@@ -33,6 +34,7 @@
           <Property Name="trainer_name" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="coaching_license" Type="varchar" MaxLength="50" />
           <Property Name="team_id" Type="int" />
+          <Property Name="photo_path" Type="varchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="users">
           <Key>
@@ -85,8 +87,7 @@
             <End Role="trainers" EntitySet="trainers" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ProjetoBDModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -100,6 +101,7 @@
           <Property Name="birthdate" Type="DateTime" Precision="0" />
           <Property Name="team_id" Type="Int32" />
           <NavigationProperty Name="Team" Relationship="Self.fk_team" FromRole="players" ToRole="Teams" />
+          <Property Name="photo_path" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Team">
           <Key>
@@ -122,6 +124,7 @@
           <Property Name="coaching_license" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="team_id" Type="Int32" />
           <NavigationProperty Name="Team" Relationship="Self.fk_teamtrainers" FromRole="trainers" ToRole="Teams" />
+          <Property Name="photo_path" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="user">
           <Key>
@@ -183,6 +186,7 @@
           <EntitySetMapping Name="players">
             <EntityTypeMapping TypeName="ProjetoBDModel.player">
               <MappingFragment StoreEntitySet="players">
+                <ScalarProperty Name="photo_path" ColumnName="photo_path" />
                 <ScalarProperty Name="player_id" ColumnName="player_id" />
                 <ScalarProperty Name="player_name" ColumnName="player_name" />
                 <ScalarProperty Name="position" ColumnName="position" />
@@ -205,6 +209,7 @@
           <EntitySetMapping Name="trainers">
             <EntityTypeMapping TypeName="ProjetoBDModel.trainer">
               <MappingFragment StoreEntitySet="trainers">
+                <ScalarProperty Name="photo_path" ColumnName="photo_path" />
                 <ScalarProperty Name="trainer_id" ColumnName="trainer_id" />
                 <ScalarProperty Name="trainer_name" ColumnName="trainer_name" />
                 <ScalarProperty Name="coaching_license" ColumnName="coaching_license" />

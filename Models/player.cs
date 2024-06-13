@@ -19,6 +19,7 @@ namespace Maio11_Best.Models
         public string position { get; set; }
         public Nullable<System.DateTime> birthdate { get; set; }
         public Nullable<int> team_id { get; set; }
+        public string photo_path { get; set; }
     
         public virtual Team Team { get; set; }
     }

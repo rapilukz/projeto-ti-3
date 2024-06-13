@@ -1,4 +1,6 @@
-﻿@model IEnumerable<Maio11_Best.Models.Team>
+﻿@using System;
+@using System.IO;
+@model IEnumerable<Maio11_Best.Models.Team>
 
 @{
     ViewBag.Title = "Teams";
@@ -36,7 +38,7 @@
                 }
                 else
                 {
-                    <img width="50" src="@Url.Content("~/fotos/" + item.photo_path)" alt="" />
+                    <img width="50" src="@Url.Content("~/fotos/" + System.IO.Path.GetFileName(item.photo_path))" alt="" />
                 }
             </td>
             <td>

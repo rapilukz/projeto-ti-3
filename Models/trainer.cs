@@ -18,6 +18,7 @@ namespace Maio11_Best.Models
         public string trainer_name { get; set; }
         public string coaching_license { get; set; }
         public Nullable<int> team_id { get; set; }
+        public string photo_path { get; set; }
     
         public virtual Team Team { get; set; }
     }

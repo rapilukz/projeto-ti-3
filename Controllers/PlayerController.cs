@@ -34,13 +34,22 @@ namespace Maio11_Best.Controllers
         }
 
         [HttpPost]
-        public ActionResult InsertPlayer(player newPlayer)
+        public ActionResult InsertPlayer(player newPlayer, HttpPostedFileBase fich)
         {
             
             using (DbModel db = new DbModel())
             {
                 db.players.Add(newPlayer);
                 db.SaveChanges();
+                if(fich != null && fich.FileName.Length > 0 && fich.ContentType.Contains("image"))
+                {
+                    string path = Server.MapPath("~/fotos/");
+                    string file = newPlayer.player_id.ToString() + System.IO.Path.GetExtension(fich.FileName);
+                    newPlayer.photo_path = file;
+                    path += file;
+                    fich.SaveAs(path);
+                    db.SaveChanges();   
+                }
                 return RedirectToAction("PlayerList", new { msg="Inserido com sucesso" });
             }
 
