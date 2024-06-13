@@ -34,11 +34,11 @@
             <td>
                 @if (item.photo_path == null || String.IsNullOrEmpty(item.photo_path))
                 {
-                    <img width="50" src="@Url.Content("~/fotos/no-logo.jpg")" alt="" />
+                    <img width="50" src="@Url.Content("~/fotos/teams/no-logo.jpg")" alt="" />
                 }
                 else
                 {
-                    <img width="50" src="@Url.Content("~/fotos/" + System.IO.Path.GetFileName(item.photo_path))" alt="" />
+                    <img width="50" src="@Url.Content("~/fotos/teams/" + System.IO.Path.GetFileName(item.photo_path))" alt="" />
                 }
             </td>
             <td>

@@ -43,7 +43,7 @@ namespace Maio11_Best.Controllers
                 db.SaveChanges();
                 if(fich != null && fich.FileName.Length > 0 && fich.ContentType.Contains("image"))
                 {
-                    string path = Server.MapPath("~/fotos/");
+                    string path = Server.MapPath("~/fotos/players/");
                     string file = newPlayer.player_id.ToString() + System.IO.Path.GetExtension(fich.FileName);
                     newPlayer.photo_path = file;
                     path += file;
