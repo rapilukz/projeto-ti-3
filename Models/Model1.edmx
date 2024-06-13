@@ -23,6 +23,7 @@
           <Property Name="team_name" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="foundation_year" Type="int" />
           <Property Name="country" Type="varchar" MaxLength="50" />
+          <Property Name="photo_path" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="trainers">
           <Key>
@@ -46,7 +47,7 @@
           <Property Name="photo_path" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="role" Type="varchar" MaxLength="50" />
         </EntityType>
-        <Association Name="FK__players__team_id__3E52440B">
+        <Association Name="fk_team">
           <End Role="Teams" Type="Self.Teams" Multiplicity="0..1" />
           <End Role="players" Type="Self.players" Multiplicity="*" />
           <ReferentialConstraint>
@@ -58,7 +59,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__trainers__team_i__412EB0B6">
+        <Association Name="fk_teamtrainers">
           <End Role="Teams" Type="Self.Teams" Multiplicity="0..1" />
           <End Role="trainers" Type="Self.trainers" Multiplicity="*" />
           <ReferentialConstraint>
@@ -75,11 +76,11 @@
           <EntitySet Name="Teams" EntityType="Self.Teams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="trainers" EntityType="Self.trainers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__players__team_id__3E52440B" Association="Self.FK__players__team_id__3E52440B">
+          <AssociationSet Name="fk_team" Association="Self.fk_team">
             <End Role="Teams" EntitySet="Teams" />
             <End Role="players" EntitySet="players" />
           </AssociationSet>
-          <AssociationSet Name="FK__trainers__team_i__412EB0B6" Association="Self.FK__trainers__team_i__412EB0B6">
+          <AssociationSet Name="fk_teamtrainers" Association="Self.fk_teamtrainers">
             <End Role="Teams" EntitySet="Teams" />
             <End Role="trainers" EntitySet="trainers" />
           </AssociationSet>
@@ -98,7 +99,7 @@
           <Property Name="position" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="birthdate" Type="DateTime" Precision="0" />
           <Property Name="team_id" Type="Int32" />
-          <NavigationProperty Name="Team" Relationship="Self.FK__players__team_id__3E52440B" FromRole="players" ToRole="Teams" />
+          <NavigationProperty Name="Team" Relationship="Self.fk_team" FromRole="players" ToRole="Teams" />
         </EntityType>
         <EntityType Name="Team">
           <Key>
@@ -108,8 +109,9 @@
           <Property Name="team_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="foundation_year" Type="Int32" />
           <Property Name="country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="players" Relationship="Self.FK__players__team_id__3E52440B" FromRole="Teams" ToRole="players" />
-          <NavigationProperty Name="trainers" Relationship="Self.FK__trainers__team_i__412EB0B6" FromRole="Teams" ToRole="trainers" />
+          <Property Name="photo_path" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="players" Relationship="Self.fk_team" FromRole="Teams" ToRole="players" />
+          <NavigationProperty Name="trainers" Relationship="Self.fk_teamtrainers" FromRole="Teams" ToRole="trainers" />
         </EntityType>
         <EntityType Name="trainer">
           <Key>
@@ -119,7 +121,7 @@
           <Property Name="trainer_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="coaching_license" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="team_id" Type="Int32" />
-          <NavigationProperty Name="Team" Relationship="Self.FK__trainers__team_i__412EB0B6" FromRole="trainers" ToRole="Teams" />
+          <NavigationProperty Name="Team" Relationship="Self.fk_teamtrainers" FromRole="trainers" ToRole="Teams" />
         </EntityType>
         <EntityType Name="user">
           <Key>
@@ -134,7 +136,7 @@
           <Property Name="photo_path" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="role" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
-        <Association Name="FK__players__team_id__3E52440B">
+        <Association Name="fk_team">
           <End Role="Teams" Type="Self.Team" Multiplicity="0..1" />
           <End Role="players" Type="Self.player" Multiplicity="*" />
           <ReferentialConstraint>
@@ -146,7 +148,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__trainers__team_i__412EB0B6">
+        <Association Name="fk_teamtrainers">
           <End Role="Teams" Type="Self.Team" Multiplicity="0..1" />
           <End Role="trainers" Type="Self.trainer" Multiplicity="*" />
           <ReferentialConstraint>
@@ -158,16 +160,16 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="ProjetoBDEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="DbModel" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="players" EntityType="Self.player" />
           <EntitySet Name="Teams" EntityType="Self.Team" />
           <EntitySet Name="trainers" EntityType="Self.trainer" />
           <EntitySet Name="users" EntityType="Self.user" />
-          <AssociationSet Name="FK__players__team_id__3E52440B" Association="Self.FK__players__team_id__3E52440B">
+          <AssociationSet Name="fk_team" Association="Self.fk_team">
             <End Role="Teams" EntitySet="Teams" />
             <End Role="players" EntitySet="players" />
           </AssociationSet>
-          <AssociationSet Name="FK__trainers__team_i__412EB0B6" Association="Self.FK__trainers__team_i__412EB0B6">
+          <AssociationSet Name="fk_teamtrainers" Association="Self.fk_teamtrainers">
             <End Role="Teams" EntitySet="Teams" />
             <End Role="trainers" EntitySet="trainers" />
           </AssociationSet>
@@ -177,7 +179,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ProjetoBDModelStoreContainer" CdmEntityContainer="ProjetoBDEntities">
+        <EntityContainerMapping StorageEntityContainer="ProjetoBDModelStoreContainer" CdmEntityContainer="DbModel">
           <EntitySetMapping Name="players">
             <EntityTypeMapping TypeName="ProjetoBDModel.player">
               <MappingFragment StoreEntitySet="players">
@@ -196,6 +198,7 @@
                 <ScalarProperty Name="team_name" ColumnName="team_name" />
                 <ScalarProperty Name="foundation_year" ColumnName="foundation_year" />
                 <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="photo_path" ColumnName="photo_path" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

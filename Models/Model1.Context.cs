@@ -13,10 +13,10 @@ namespace Maio11_Best.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class ProjetoBDEntities : DbContext
+    public partial class DbModel : DbContext
     {
-        public ProjetoBDEntities()
-            : base("name=ProjetoBDEntities")
+        public DbModel()
+            : base("name=DbModel")
         {
         }
     

@@ -4,19 +4,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
 
 namespace Maio11_Best.Controllers
 {
-    public class TeamController : Controller
+    public class TrainerController : Controller
     {
-        // GET: Team
-        public ActionResult TeamList(String msg)
+        // GET: Player
+        public ActionResult TrainerList(String msg)
         {
             ViewBag.msg = msg;
             using (DbModel db = new DbModel())
             {
-                List<Team> teams = db.Teams.ToList();
-                return View(teams);
+                List<trainer> trainers = db.trainers.Include(p => p.Team).ToList();
+                return View(trainers);
             }
 
         }

@@ -25,6 +25,7 @@ namespace Maio11_Best.Models
         public string team_name { get; set; }
         public Nullable<int> foundation_year { get; set; }
         public string country { get; set; }
+        public string photo_path { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<player> players { get; set; }

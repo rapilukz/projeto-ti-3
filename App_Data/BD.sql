@@ -10,7 +10,6 @@ CREATE TABLE users (
     role VARCHAR(50) DEFAULT 'user'
 );
 
-
 --
 CREATE TABLE Teams (
     team_id INT identity(1,1) PRIMARY KEY,
@@ -35,8 +34,9 @@ CREATE TABLE players (
     position VARCHAR(50),
     birthdate DATE,
     team_id INT,
-    FOREIGN KEY (team_id) REFERENCES teams(team_id) ON DELETE
-    SET NULL
+    CONSTRAINT fk_team FOREIGN KEY (team_id)
+        REFERENCES teams(team_id)
+        ON DELETE SET NULL
 );
 
 INSERT INTO
@@ -53,8 +53,9 @@ CREATE TABLE trainers (
     trainer_name VARCHAR(100) NOT NULL,
     coaching_license VARCHAR(50),
     team_id INT,
-    FOREIGN KEY (team_id) REFERENCES teams(team_id) ON DELETE
-    SET NULL
+    CONSTRAINT fk_team FOREIGN KEY (team_id)
+        REFERENCES teams(team_id)
+        ON DELETE SET NULL
 );
 
 -- Mock data for Trainer Table

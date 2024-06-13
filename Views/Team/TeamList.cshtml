@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Maio11_Best.Models.Team>
+
+@{
+    ViewBag.Title = "TeamList";
+}
+
+<h2>TeamList</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create", null , new { @class="btn btn-primary" })
+</p>
+<table class="table table-responsive table-bordered table-striped table-primary">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.team_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.team_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.foundation_year)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.country)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.team_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.team_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.foundation_year)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.country)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.team_id }) |
+            @Html.ActionLink("Details", "Details", new { id = item.team_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.team_id })
+        </td>
+    </tr>
+}
+
+</table>
