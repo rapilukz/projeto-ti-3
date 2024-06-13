@@ -174,57 +174,49 @@
     <Compile Include="Controllers\CarrosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\TeamController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\aluga.cs">
-      <DependentUpon>Stand.tt</DependentUpon>
+    <Compile Include="Models\BdModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BdModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\aluguere.cs">
-      <DependentUpon>Stand.tt</DependentUpon>
+    <Compile Include="Models\BdModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BdModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\carro.cs">
-      <DependentUpon>Stand.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\cliente.cs">
-      <DependentUpon>Stand.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\historico.cs">
-      <DependentUpon>Stand.tt</DependentUpon>
+    <Compile Include="Models\BdModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BdModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\marca.cs">
-      <DependentUpon>Stand.tt</DependentUpon>
+    <Compile Include="Models\player.cs">
+      <DependentUpon>BdModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\nova.cs">
-      <DependentUpon>Stand.tt</DependentUpon>
+    <Compile Include="Models\Team.cs">
+      <DependentUpon>BdModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Stand.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Stand.Context.tt</DependentUpon>
+    <Compile Include="Models\trainer.cs">
+      <DependentUpon>BdModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Stand.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Stand.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Stand.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Stand.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Models\v_carros.cs">
-      <DependentUpon>Stand.tt</DependentUpon>
+    <Compile Include="Models\user.cs">
+      <DependentUpon>BdModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\BD.sql" />
-    <Content Include="App_Data\SQLQuery1.sql" />
+    <Content Include="App_Data\ProjetoBD.mdf" />
+    <Content Include="App_Data\ProjetoBD_log.ldf">
+      <DependentUpon>ProjetoBD.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
@@ -244,15 +236,15 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\Stand.Context.tt">
+    <Content Include="Models\BdModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Stand.edmx</DependentUpon>
-      <LastGenOutput>Stand.Context.cs</LastGenOutput>
+      <DependentUpon>BdModel.edmx</DependentUpon>
+      <LastGenOutput>BdModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\Stand.tt">
+    <Content Include="Models\BdModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Stand.edmx</DependentUpon>
-      <LastGenOutput>Stand.cs</LastGenOutput>
+      <DependentUpon>BdModel.edmx</DependentUpon>
+      <LastGenOutput>BdModel.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -260,12 +252,12 @@
     <Content Include="Scripts\bootstrap.esm.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="Models\Stand.edmx">
+    <EntityDeploy Include="Models\BdModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Stand.Designer.cs</LastGenOutput>
+      <LastGenOutput>BdModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\Stand.edmx.diagram">
-      <DependentUpon>Stand.edmx</DependentUpon>
+    <Content Include="Models\BdModel.edmx.diagram">
+      <DependentUpon>BdModel.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -349,6 +341,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="fotos\" />
+    <Folder Include="Views\Team\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,0 +1,249 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ProjetoBDModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="players">
+          <Key>
+            <PropertyRef Name="player_id" />
+          </Key>
+          <Property Name="player_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="player_name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="position" Type="varchar" MaxLength="50" />
+          <Property Name="birthdate" Type="date" />
+          <Property Name="team_id" Type="int" />
+        </EntityType>
+        <EntityType Name="Teams">
+          <Key>
+            <PropertyRef Name="team_id" />
+          </Key>
+          <Property Name="team_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="team_name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="foundation_year" Type="int" />
+          <Property Name="country" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="trainers">
+          <Key>
+            <PropertyRef Name="trainer_id" />
+          </Key>
+          <Property Name="trainer_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="trainer_name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="coaching_license" Type="varchar" MaxLength="50" />
+          <Property Name="team_id" Type="int" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="username" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="birthdate" Type="date" />
+          <Property Name="created_at" Type="datetime" />
+          <Property Name="photo_path" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="role" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK__players__team_id__3E52440B">
+          <End Role="Teams" Type="Self.Teams" Multiplicity="0..1" />
+          <End Role="players" Type="Self.players" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teams">
+              <PropertyRef Name="team_id" />
+            </Principal>
+            <Dependent Role="players">
+              <PropertyRef Name="team_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__trainers__team_i__412EB0B6">
+          <End Role="Teams" Type="Self.Teams" Multiplicity="0..1" />
+          <End Role="trainers" Type="Self.trainers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teams">
+              <PropertyRef Name="team_id" />
+            </Principal>
+            <Dependent Role="trainers">
+              <PropertyRef Name="team_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ProjetoBDModelStoreContainer">
+          <EntitySet Name="players" EntityType="Self.players" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Teams" EntityType="Self.Teams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="trainers" EntityType="Self.trainers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__players__team_id__3E52440B" Association="Self.FK__players__team_id__3E52440B">
+            <End Role="Teams" EntitySet="Teams" />
+            <End Role="players" EntitySet="players" />
+          </AssociationSet>
+          <AssociationSet Name="FK__trainers__team_i__412EB0B6" Association="Self.FK__trainers__team_i__412EB0B6">
+            <End Role="Teams" EntitySet="Teams" />
+            <End Role="trainers" EntitySet="trainers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ProjetoBDModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="player">
+          <Key>
+            <PropertyRef Name="player_id" />
+          </Key>
+          <Property Name="player_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="player_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="position" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="birthdate" Type="DateTime" Precision="0" />
+          <Property Name="team_id" Type="Int32" />
+          <NavigationProperty Name="Team" Relationship="Self.FK__players__team_id__3E52440B" FromRole="players" ToRole="Teams" />
+        </EntityType>
+        <EntityType Name="Team">
+          <Key>
+            <PropertyRef Name="team_id" />
+          </Key>
+          <Property Name="team_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="team_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="foundation_year" Type="Int32" />
+          <Property Name="country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="players" Relationship="Self.FK__players__team_id__3E52440B" FromRole="Teams" ToRole="players" />
+          <NavigationProperty Name="trainers" Relationship="Self.FK__trainers__team_i__412EB0B6" FromRole="Teams" ToRole="trainers" />
+        </EntityType>
+        <EntityType Name="trainer">
+          <Key>
+            <PropertyRef Name="trainer_id" />
+          </Key>
+          <Property Name="trainer_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="trainer_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="coaching_license" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="team_id" Type="Int32" />
+          <NavigationProperty Name="Team" Relationship="Self.FK__trainers__team_i__412EB0B6" FromRole="trainers" ToRole="Teams" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="birthdate" Type="DateTime" Precision="0" />
+          <Property Name="created_at" Type="DateTime" Precision="3" />
+          <Property Name="photo_path" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="role" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK__players__team_id__3E52440B">
+          <End Role="Teams" Type="Self.Team" Multiplicity="0..1" />
+          <End Role="players" Type="Self.player" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teams">
+              <PropertyRef Name="team_id" />
+            </Principal>
+            <Dependent Role="players">
+              <PropertyRef Name="team_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__trainers__team_i__412EB0B6">
+          <End Role="Teams" Type="Self.Team" Multiplicity="0..1" />
+          <End Role="trainers" Type="Self.trainer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teams">
+              <PropertyRef Name="team_id" />
+            </Principal>
+            <Dependent Role="trainers">
+              <PropertyRef Name="team_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ProjetoBDEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="players" EntityType="Self.player" />
+          <EntitySet Name="Teams" EntityType="Self.Team" />
+          <EntitySet Name="trainers" EntityType="Self.trainer" />
+          <EntitySet Name="users" EntityType="Self.user" />
+          <AssociationSet Name="FK__players__team_id__3E52440B" Association="Self.FK__players__team_id__3E52440B">
+            <End Role="Teams" EntitySet="Teams" />
+            <End Role="players" EntitySet="players" />
+          </AssociationSet>
+          <AssociationSet Name="FK__trainers__team_i__412EB0B6" Association="Self.FK__trainers__team_i__412EB0B6">
+            <End Role="Teams" EntitySet="Teams" />
+            <End Role="trainers" EntitySet="trainers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ProjetoBDModelStoreContainer" CdmEntityContainer="ProjetoBDEntities">
+          <EntitySetMapping Name="players">
+            <EntityTypeMapping TypeName="ProjetoBDModel.player">
+              <MappingFragment StoreEntitySet="players">
+                <ScalarProperty Name="player_id" ColumnName="player_id" />
+                <ScalarProperty Name="player_name" ColumnName="player_name" />
+                <ScalarProperty Name="position" ColumnName="position" />
+                <ScalarProperty Name="birthdate" ColumnName="birthdate" />
+                <ScalarProperty Name="team_id" ColumnName="team_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Teams">
+            <EntityTypeMapping TypeName="ProjetoBDModel.Team">
+              <MappingFragment StoreEntitySet="Teams">
+                <ScalarProperty Name="team_id" ColumnName="team_id" />
+                <ScalarProperty Name="team_name" ColumnName="team_name" />
+                <ScalarProperty Name="foundation_year" ColumnName="foundation_year" />
+                <ScalarProperty Name="country" ColumnName="country" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="trainers">
+            <EntityTypeMapping TypeName="ProjetoBDModel.trainer">
+              <MappingFragment StoreEntitySet="trainers">
+                <ScalarProperty Name="trainer_id" ColumnName="trainer_id" />
+                <ScalarProperty Name="trainer_name" ColumnName="trainer_name" />
+                <ScalarProperty Name="coaching_license" ColumnName="coaching_license" />
+                <ScalarProperty Name="team_id" ColumnName="team_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="ProjetoBDModel.user">
+              <MappingFragment StoreEntitySet="users">
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="birthdate" ColumnName="birthdate" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="photo_path" ColumnName="photo_path" />
+                <ScalarProperty Name="role" ColumnName="role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

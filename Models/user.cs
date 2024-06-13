@@ -12,17 +12,15 @@ namespace Maio11_Best.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class marca
+    public partial class user
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public marca()
-        {
-            this.carros = new HashSet<carro>();
-        }
-    
-        public string marca1 { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<carro> carros { get; set; }
+        public int user_id { get; set; }
+        public string username { get; set; }
+        public string email { get; set; }
+        public string password { get; set; }
+        public Nullable<System.DateTime> birthdate { get; set; }
+        public Nullable<System.DateTime> created_at { get; set; }
+        public string photo_path { get; set; }
+        public string role { get; set; }
     }
 }

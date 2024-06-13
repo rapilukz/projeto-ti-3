@@ -13,10 +13,10 @@ namespace Maio11_Best.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class bdbestEntities : DbContext
+    public partial class ProjetoBDEntities : DbContext
     {
-        public bdbestEntities()
-            : base("name=bdbestEntities")
+        public ProjetoBDEntities()
+            : base("name=ProjetoBDEntities")
         {
         }
     
@@ -25,13 +25,9 @@ namespace Maio11_Best.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<aluguere> alugueres { get; set; }
-        public virtual DbSet<carro> carros { get; set; }
-        public virtual DbSet<cliente> clientes { get; set; }
-        public virtual DbSet<marca> marcas { get; set; }
-        public virtual DbSet<aluga> alugas { get; set; }
-        public virtual DbSet<historico> historicoes { get; set; }
-        public virtual DbSet<nova> novae { get; set; }
-        public virtual DbSet<v_carros> v_carros { get; set; }
+        public virtual DbSet<player> players { get; set; }
+        public virtual DbSet<Team> Teams { get; set; }
+        public virtual DbSet<trainer> trainers { get; set; }
+        public virtual DbSet<user> users { get; set; }
     }
 }

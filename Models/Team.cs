@@ -12,26 +12,23 @@ namespace Maio11_Best.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class cliente
+    public partial class Team
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public cliente()
+        public Team()
         {
-            this.alugueres = new HashSet<aluguere>();
-            this.clientes1 = new HashSet<cliente>();
+            this.players = new HashSet<player>();
+            this.trainers = new HashSet<trainer>();
         }
     
-        public int idcli { get; set; }
-        public string nome { get; set; }
-        public string categoria { get; set; }
-        public Nullable<System.DateTime> datanasc { get; set; }
-        public Nullable<decimal> idade { get; set; }
-        public Nullable<int> boss { get; set; }
+        public int team_id { get; set; }
+        public string team_name { get; set; }
+        public Nullable<int> foundation_year { get; set; }
+        public string country { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<aluguere> alugueres { get; set; }
+        public virtual ICollection<player> players { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<cliente> clientes1 { get; set; }
-        public virtual cliente cliente1 { get; set; }
+        public virtual ICollection<trainer> trainers { get; set; }
     }
 }

@@ -5,7 +5,8 @@ CREATE TABLE users (
     email VARCHAR(100) NOT NULL,
     password VARCHAR(255) NOT NULL,
     birthdate DATE,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    photo_path VARCHAR(255) not null,
     role VARCHAR(50) DEFAULT 'user'
 );
 

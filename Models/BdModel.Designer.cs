@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\ISTEC\ISTEC_2023_2024\Aulas\2ºSemestre\TINTIII_A_theBest\Projetos\Maio_11\Maio11_Best\Models\Stand.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\gabri\Documents\GitHub\projeto-ti-3\Models\BdModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

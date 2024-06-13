@@ -12,13 +12,14 @@ namespace Maio11_Best.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class nova
+    public partial class player
     {
-        public int idcli { get; set; }
-        public string graca { get; set; }
-        public string categoria { get; set; }
-        public Nullable<System.DateTime> datanasc { get; set; }
-        public Nullable<decimal> idade { get; set; }
-        public Nullable<int> boss { get; set; }
+        public int player_id { get; set; }
+        public string player_name { get; set; }
+        public string position { get; set; }
+        public Nullable<System.DateTime> birthdate { get; set; }
+        public Nullable<int> team_id { get; set; }
+    
+        public virtual Team Team { get; set; }
     }
 }

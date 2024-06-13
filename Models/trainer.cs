@@ -12,16 +12,13 @@ namespace Maio11_Best.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class aluguere
+    public partial class trainer
     {
-        public int idal { get; set; }
-        public Nullable<int> idcli { get; set; }
-        public Nullable<int> idcar { get; set; }
-        public Nullable<decimal> tempo { get; set; }
-        public Nullable<decimal> custo { get; set; }
-        public Nullable<System.DateTime> dataaluguer { get; set; }
+        public int trainer_id { get; set; }
+        public string trainer_name { get; set; }
+        public string coaching_license { get; set; }
+        public Nullable<int> team_id { get; set; }
     
-        public virtual carro carro { get; set; }
-        public virtual cliente cliente { get; set; }
+        public virtual Team Team { get; set; }
     }
 }
