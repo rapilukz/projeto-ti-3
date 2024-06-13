@@ -7,30 +7,20 @@
 <h2>Players</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Create New", "InsertPlayer", null, new { @class = "btn btn-primary" })
 </p>
 <table class="table table-responsive table-bordered table-striped">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.player_id)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.player_name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.position)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.birthdate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Team.team_name)
-        </th>
+    <tr class="text-center">
+        <th>Id</th>
+        <th>Name</th>
+        <th>Position</th>
+        <th>Birthdate</th>
+        <th>Team</th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
+    <tr class="text-center">
         <td>
             @Html.DisplayFor(modelItem => item.player_id)
         </td>
@@ -47,9 +37,8 @@
             @Html.DisplayFor(modelItem => item.Team.team_name)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.player_id }) |
-            @Html.ActionLink("Details", "Details", new { id = item.player_id }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.player_id })
+            @Html.ActionLink("Edit", "Edit", new { id = item.player_id }, new { @class="btn btn-primary" })
+            @Html.ActionLink("Delete", "Delete", new { id = item.player_id }, new { @class="btn btn-danger" })
         </td>
     </tr>
 }

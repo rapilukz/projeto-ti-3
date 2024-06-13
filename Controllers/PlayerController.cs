@@ -21,5 +21,29 @@ namespace Maio11_Best.Controllers
             }
 
         }
+
+        public ActionResult InsertPlayer()
+        {
+            using (DbModel db = new DbModel())
+            {
+                var teams = db.Teams.Select(t => new { t.team_id, t.team_name }).ToList();
+                ViewBag.TeamNames = new SelectList(teams, "team_id", "team_name");
+                player player = new player();
+                return View(player);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult InsertPlayer(player newPlayer)
+        {
+            
+            using (DbModel db = new DbModel())
+            {
+                db.players.Add(newPlayer);
+                db.SaveChanges();
+                return RedirectToAction("PlayerList", new { msg="Inserido com sucesso" });
+            }
+
+        }
     }
 }

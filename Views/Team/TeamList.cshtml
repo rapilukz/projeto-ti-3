@@ -7,45 +7,49 @@
 <h2>Teams</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create", null , new { @class="btn btn-primary" })
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
 </p>
 <table class="table table-responsive table-bordered table-striped">
-    <tr>
+    <tr class="text-center">
+        <th>Id</th>
+        <th>Name</th>
+        <th>Logo</th>
+        <th>Founded in</th>
+        <th>Country</th>
         <th>
-            @Html.DisplayNameFor(model => model.team_id)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.team_name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.foundation_year)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.country)
-        </th>
-        <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.team_name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.team_name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.foundation_year)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.country)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.team_id }) |
-            @Html.ActionLink("Details", "Details", new { id = item.team_id }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.team_id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr class="text-center">
+            <td>
+                @Html.DisplayFor(modelItem => item.team_id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.team_name)
+            </td>
+            <td>
+                @if (item.photo_path == null || String.IsNullOrEmpty(item.photo_path))
+                {
+                    <img width="50" src="@Url.Content("~/fotos/no-logo.jpg")" alt="" />
+                }
+                else
+                {
+                    <img width="50" src="@Url.Content("~/fotos/" + item.photo_path)" alt="" />
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.foundation_year)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.country)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", null, new { @class = "btn btn-primary", id = item.team_id })
+                @Html.ActionLink("Delete", "DeleteTeam", new { id = item.team_id } , new { @class = "btn btn-danger" })
+            </td>
+        </tr>
+    }
 
 </table>
