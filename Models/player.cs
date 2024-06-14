@@ -11,12 +11,16 @@ namespace Maio11_Best.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class player
     {
         public int player_id { get; set; }
+        [Required(ErrorMessage = "Player Name is required")]
         public string player_name { get; set; }
+        [Required(ErrorMessage = "Positions is required")]
         public string position { get; set; }
+        [Required(ErrorMessage = "Birthdate is required")]
         public Nullable<System.DateTime> birthdate { get; set; }
         public Nullable<int> team_id { get; set; }
         public string photo_path { get; set; }

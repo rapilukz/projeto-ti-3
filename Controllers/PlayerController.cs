@@ -132,6 +132,7 @@ namespace Maio11_Best.Controllers
                     editedPlayer.player_name = player.player_name;
                     editedPlayer.position = player.position;
                     editedPlayer.birthdate = player.birthdate;
+                    editedPlayer.team_id = player.team_id;
                     if (player.photo_path != null && fich == null)
                     {
                         editedPlayer.photo_path = player.photo_path;

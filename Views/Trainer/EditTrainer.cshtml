@@ -1,0 +1,87 @@
+﻿@model Maio11_Best.Models.trainer
+
+@{
+    ViewBag.Title = "EditTrainer";
+}
+
+<h2>EditTrainer</h2>
+
+
+@using (Html.BeginForm("EditTrainer", "Trainer", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>trainer</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.trainer_id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.trainer_name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.trainer_name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.trainer_name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.coaching_license, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.coaching_license, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.coaching_license, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.team_id, "Team", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.team_id, ViewBag.TeamNames as SelectList, new { @class = "form-select" })
+                @Html.ValidationMessageFor(model => model.team_id, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Foto", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="file" id="fich" name="fich" class="form-control" onchange="previewFile(this);" />
+                @Html.ValidationMessageFor(model => model.photo_path, "", new { @class = "text-danger" })
+            </div>
+            @if (!string.IsNullOrEmpty(Model.photo_path))
+            {
+                <img width="180" class="figure-img m-3" id="foto" src="@Url.Content("~/fotos/coachs/" + System.IO.Path.GetFileName(Model.photo_path))" alt="Team Photo" />
+            }
+            else
+            {
+                <img width="180" class="figure-img m-3" id="foto" alt="Preview" />
+            }
+        </div>
+
+        <div class="form-group mt-2">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "TrainerList")
+</div>
+
+<script>
+    function previewFile(input) {
+        var file = $("input[type=file]").get(0).files[0];
+        if (file) {
+            var reader = new FileReader();
+            reader.onload = function () {
+                $("#foto").attr("src", reader.result);
+            }
+            reader.readAsDataURL(file);
+        }
+    }
+</script>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

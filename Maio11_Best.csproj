@@ -310,6 +310,11 @@
     <Content Include="Views\Player\EditPlayer.cshtml" />
     <Content Include="Views\Team\DeleteTeam.cshtml" />
     <Content Include="Views\Team\EditTeam.cshtml" />
+    <Content Include="Views\Trainer\TrainerList.cshtml" />
+    <Content Include="Views\Player\InsertPlayer.cshtml" />
+    <Content Include="Views\Trainer\InsertTrainer.cshtml" />
+    <Content Include="Views\Trainer\DeleteTrainer.cshtml" />
+    <Content Include="Views\Trainer\EditTrainer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -343,7 +348,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="fotos\" />
-    <Folder Include="Views\Trainer\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
