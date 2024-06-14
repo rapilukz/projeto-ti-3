@@ -9,6 +9,7 @@
 <p>
     @Html.ActionLink("Create New", "InsertPlayer", null, new { @class = "btn btn-primary" })
 </p>
+<h3>@ViewBag.msg</h3>
 <table class="table table-responsive table-bordered table-striped">
     <tr class="text-center">
         <th>Id</th>
@@ -49,7 +50,7 @@
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id = item.player_id }, new { @class = "btn btn-primary" })
-            @Html.ActionLink("Delete", "Delete", new { id = item.player_id }, new { @class = "btn btn-danger" })
+            @Html.ActionLink("Delete", "DeletePlayer", new { id = item.player_id }, new { @class = "btn btn-danger" })
         </td>
     </tr>
 }
