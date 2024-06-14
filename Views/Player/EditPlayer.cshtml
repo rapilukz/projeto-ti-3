@@ -1,6 +1,10 @@
 ﻿@model Maio11_Best.Models.player
 
 
+@{ 
+    string formattedBirthdate = Model.birthdate.Value.ToString("yyyy-MM-dd");
+}
+
 @using (Html.BeginForm("EditPlayer", "Player", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
@@ -73,12 +77,16 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        var birthdateValue = '@Model.birthdate';
+        var birthdateValue = '@Html.Raw(formattedBirthdate)';
 
         if (birthdateValue) {
             var date = new Date(birthdateValue);
-            var formattedDate = date.toISOString().split('T')[0]; // Format as yyyy-MM-dd
-            document.getElementById('birthdate').value = formattedDate;
+            if (!isNaN(date)) {
+                var formattedDate = date.toISOString().split('T')[0]; // Format as yyyy-MM-dd
+                document.getElementById('birthdate').value = formattedDate;
+            } else {
+                console.error('Invalid date format:', birthdateValue);
+            }
         }
     });
 
