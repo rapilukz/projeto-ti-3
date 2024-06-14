@@ -171,7 +171,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\CarrosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PlayerController.cs" />
@@ -304,15 +303,13 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Carros\ListaCarros.cshtml" />
-    <Content Include="Views\Carros\inserircarro.cshtml" />
-    <Content Include="Views\Carros\apagarcarro.cshtml" />
-    <Content Include="Views\Carros\editarcarro.cshtml" />
     <Content Include="Views\Team\TeamList.cshtml" />
     <Content Include="Views\Player\PlayerList.cshtml" />
     <Content Include="Views\Team\InsertTeam.cshtml" />
     <Content Include="Views\Player\DeletePlayer.cshtml" />
     <Content Include="Views\Player\EditPlayer.cshtml" />
+    <Content Include="Views\Team\DeleteTeam.cshtml" />
+    <Content Include="Views\Team\EditTeam.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

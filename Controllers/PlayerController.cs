@@ -5,7 +5,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
-using System.Net;
 
 namespace Maio11_Best.Controllers
 {
@@ -115,7 +114,6 @@ namespace Maio11_Best.Controllers
                 player editedPlayer = db.players.Find(id ?? -1);
                 if (editedPlayer != null)
                 {
-                    editedPlayer.birthdate.Value.ToString("yyyy-MM-dd");
                     return View(editedPlayer);
                 }
                 return RedirectToAction("PlayerList", new { msg = "Registo não encontrado" });
@@ -134,7 +132,10 @@ namespace Maio11_Best.Controllers
                     editedPlayer.player_name = player.player_name;
                     editedPlayer.position = player.position;
                     editedPlayer.birthdate = player.birthdate;
-                    editedPlayer.photo_path = player.photo_path;
+                    if (player.photo_path != null && fich == null)
+                    {
+                        editedPlayer.photo_path = player.photo_path;
+                    }
                     if (fich != null && fich.FileName.Length > 0 && fich.ContentType.Contains("image"))
                     {
 

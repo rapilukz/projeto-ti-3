@@ -9,7 +9,7 @@
 <h2>Teams</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Create New", "InsertTeam", null, new { @class = "btn btn-primary" })
 </p>
 <table class="table table-responsive table-bordered table-striped">
     <tr class="text-center">
@@ -48,7 +48,7 @@
                 @Html.DisplayFor(modelItem => item.country)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", null, new { @class = "btn btn-primary", id = item.team_id })
+                @Html.ActionLink("Edit", "EditTeam", new { id = item.team_id }, new { @class = "btn btn-primary" })
                 @Html.ActionLink("Delete", "DeleteTeam", new { id = item.team_id } , new { @class = "btn btn-danger" })
             </td>
         </tr>

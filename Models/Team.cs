@@ -6,7 +6,7 @@
 //     Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
+using System.ComponentModel.DataAnnotations;
 namespace Maio11_Best.Models
 {
     using System;
@@ -22,8 +22,14 @@ namespace Maio11_Best.Models
         }
     
         public int team_id { get; set; }
+        [Required(ErrorMessage = "Name is Required")]
         public string team_name { get; set; }
+
+        [Required(ErrorMessage = "Year is Required")]
+        [Range(1800, 2024, ErrorMessage = "Foundation year must be between 1800 and 2024")]
         public Nullable<int> foundation_year { get; set; }
+
+        [Required(ErrorMessage = "Country is Required")]
         public string country { get; set; }
         public string photo_path { get; set; }
     

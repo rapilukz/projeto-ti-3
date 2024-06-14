@@ -49,7 +49,14 @@
                 <input type="file" id="fich" name="fich" class="form-control" onchange="previewFile(this);" />
                 @Html.ValidationMessageFor(model => model.photo_path, "", new { @class = "text-danger" })
             </div>
-            <img width="180" class="figure-img m-3" id="foto" alt="" />
+            @if (!string.IsNullOrEmpty(Model.photo_path))
+            {
+                <img width="180" class="figure-img m-3" id="foto" src="@Url.Content("~/fotos/players/" + System.IO.Path.GetFileName(Model.photo_path))" alt="Team Photo" />
+            }
+            else
+            {
+                <img width="180" class="figure-img m-3" id="foto" alt="Preview" />
+            }
         </div>
 
         <div class="form-group">
