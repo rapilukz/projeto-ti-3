@@ -49,7 +49,7 @@
             @Html.DisplayFor(modelItem => item.Team.team_name)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.player_id }, new { @class = "btn btn-primary" })
+            @Html.ActionLink("Edit", "EditPlayer", new { id = item.player_id }, new { @class = "btn btn-primary" })
             @Html.ActionLink("Delete", "DeletePlayer", new { id = item.player_id }, new { @class = "btn btn-danger" })
         </td>
     </tr>

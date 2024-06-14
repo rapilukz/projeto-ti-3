@@ -105,5 +105,60 @@ namespace Maio11_Best.Controllers
                 }
             }
         }
+
+        public ActionResult EditPlayer(int? id)
+        {
+            using (DbModel db = new DbModel())
+            {
+                var teams = db.Teams.Select(t => new { t.team_id, t.team_name }).ToList();
+                ViewBag.TeamNames = new SelectList(teams, "team_id", "team_name");
+                player editedPlayer = db.players.Find(id ?? -1);
+                if (editedPlayer != null)
+                {
+                    editedPlayer.birthdate.Value.ToString("yyyy-MM-dd");
+                    return View(editedPlayer);
+                }
+                return RedirectToAction("PlayerList", new { msg = "Registo não encontrado" });
+
+            }
+        }
+
+        [HttpPost]
+        public ActionResult EditPlayer(player player, HttpPostedFileBase fich)
+        {
+            using (DbModel db = new DbModel())
+            {
+                player editedPlayer = db.players.Find(player.player_id);
+                if (editedPlayer != null)
+                {
+                    editedPlayer.player_name = player.player_name;
+                    editedPlayer.position = player.position;
+                    editedPlayer.birthdate = player.birthdate;
+                    editedPlayer.photo_path = player.photo_path;
+                    if (fich != null && fich.FileName.Length > 0 && fich.ContentType.Contains("image"))
+                    {
+
+                        string path = Server.MapPath("~/fotos/players/");
+                        if (editedPlayer.photo_path != null)
+                        {
+                            string newPath = path + editedPlayer.photo_path;
+                            if (System.IO.File.Exists(newPath)) System.IO.File.Delete(newPath);
+                        }
+                        string ficheiro = editedPlayer.player_id.ToString() + System.IO.Path.GetExtension(fich.FileName);
+                        editedPlayer.photo_path = ficheiro;
+                        path += ficheiro;
+                        fich.SaveAs(path);
+
+                    }
+                    db.SaveChanges();
+                    return RedirectToAction("PlayerList", new { msg = "Registo editado com sucesso" });
+
+                }
+                else
+                {
+                    return RedirectToAction("PlayerList", new { msg = "Registo não encontrado" });
+                }
+            }
+        }
     }
 }
