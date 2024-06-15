@@ -28,6 +28,23 @@ namespace Maio11_Best.Controllers
 
         }
 
+        public ActionResult DetailsPlayer(int id)
+        {
+            using (DbModel db = new DbModel())
+            {
+                var player = db.players.Include(p => p.Team).FirstOrDefault(p => p.player_id == id);
+
+                if (player != null)
+                {
+                    return View(player);
+                }
+                else
+                {
+                    return RedirectToAction("PlayerList", new { msg = "Registo não existe" });
+                }
+            }
+        }
+
         public ActionResult InsertPlayer()
         {
             using (DbModel db = new DbModel())

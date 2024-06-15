@@ -22,10 +22,7 @@
         <th>Position</th>
         <th>Birthdate</th>
         <th>Team</th>
-        @if (User.Identity.IsAuthenticated)
-        {
-            <th></th>
-        }
+        <th></th>
     </tr>
 
     @foreach (var item in Model)
@@ -56,14 +53,16 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Team.team_name)
             </td>
-            @if (User.Identity.IsAuthenticated)
-            {
-                <td class="actions-row">
+
+            <td class="actions-row">
+                @Html.ActionLink("Details", "DetailsPlayer", new { id = item.player_id }, new { @class = "icon-button btn btn-secondary fa fa-eye" })
+                @if (User.Identity.IsAuthenticated)
+                {
                     @Html.ActionLink("Edit", "EditPlayer", new { id = item.player_id }, new { @class = "icon-button btn btn-primary fa fa-pencil" })
                     @Html.ActionLink("Delete", "DeletePlayer", new { id = item.player_id }, new { @class = "icon-button btn btn-danger fa fa-trash" })
-                </td>
+                }
+            </td>
 
-            }
         </tr>
     }
 

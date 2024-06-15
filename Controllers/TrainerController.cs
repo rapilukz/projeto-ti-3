@@ -28,6 +28,23 @@ namespace Maio11_Best.Controllers
 
         }
 
+        public ActionResult DetailsTrainer(int id)
+        {
+            using(DbModel db = new DbModel())
+            {
+                var trainer = db.trainers.Include(p =>p.Team).FirstOrDefault(p => p.trainer_id == (id));
+
+                if (trainer != null)
+                {
+                    return View(trainer);
+                }
+                else
+                {
+                    return RedirectToAction("TrainerList", new { msg = "Registo não existe" });
+                }
+            }
+        }
+
         public ActionResult InsertTrainer()
         {
             using (DbModel db = new DbModel())

@@ -29,12 +29,13 @@ textarea {
     margin-right: 5px;
 }
 
-    .icon-button::before {
-        margin-right: 5px;
-    }
+.icon-button::before {
+    margin-right: 5px;
+}
+
 
 .actions-row {
-    width: 250px;
+    width: 300px;
 }
 
 td {

@@ -26,6 +26,23 @@ namespace Maio11_Best.Controllers
 
         }
 
+        public ActionResult DetailsTeam(int id)
+        {
+            using (DbModel db = new DbModel())
+            {
+                var team = db.Teams.Find(id);
+
+                if (team != null)
+                {
+                    return View(team);
+                }
+                else
+                {
+                    return RedirectToAction("TeamList", new { msg = "Registo não existe" });
+                }
+            }
+        }
+
         public ActionResult InsertTeam()
         {
             using (DbModel model = new DbModel())

@@ -1,0 +1,57 @@
+﻿@model Maio11_Best.Models.player
+
+@{
+    ViewBag.Title = "DetailsPlayer";
+}
+
+<h2>DetailsPlayer</h2>
+
+<div>
+    <h4>player</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.player_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.player_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.position)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.position)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.birthdate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.birthdate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.photo_path)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.photo_path)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Team.team_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Team.team_name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "PlayerList")
+</p>

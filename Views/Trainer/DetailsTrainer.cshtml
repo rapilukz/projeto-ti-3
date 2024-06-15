@@ -1,0 +1,49 @@
+﻿@model Maio11_Best.Models.trainer
+
+@{
+    ViewBag.Title = "DetailsTrainer";
+}
+
+<h2>DetailsTrainer</h2>
+
+<div>
+    <h4>trainer</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.trainer_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.trainer_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.coaching_license)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.coaching_license)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.photo_path)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.photo_path)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Team.team_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Team.team_name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "TrainerList")
+</p>

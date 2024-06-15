@@ -1,0 +1,49 @@
+﻿@model Maio11_Best.Models.Team
+
+@{
+    ViewBag.Title = "DetailsTeam";
+}
+
+<h2>DetailsTeam</h2>
+
+<div>
+    <h4>Team</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.team_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.team_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.foundation_year)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.foundation_year)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.country)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.country)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.photo_path)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.photo_path)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "TeamList")
+</p>

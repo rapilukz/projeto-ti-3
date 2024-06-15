@@ -535,6 +535,9 @@
     <Content Include="Views\Trainer\InsertTrainer.cshtml" />
     <Content Include="Views\Trainer\DeleteTrainer.cshtml" />
     <Content Include="Views\Trainer\EditTrainer.cshtml" />
+    <Content Include="Views\Trainer\DetailsTrainer.cshtml" />
+    <Content Include="Views\Team\DetailsTeam.cshtml" />
+    <Content Include="Views\Player\DetailsPlayer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
