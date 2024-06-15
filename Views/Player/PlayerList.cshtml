@@ -69,5 +69,7 @@
 
 </table>
 
-<div>Page @(Model.PageNumber > Model.PageCount ? 1 : Model.PageNumber) of @Model.PageCount </div>
-@Html.PagedListPager(Model, page => Url.Action("PlayerList", "Player", new { page }))
+<div class="d-flex justify-content-sm-between h-auto">
+    @Html.PagedListPager(Model, page => Url.Action("PlayerList", "Player", new { page }))
+    <span>Page @(Model.PageNumber > Model.PageCount ? 1 : Model.PageNumber) of @Model.PageCount</span>
+</div>

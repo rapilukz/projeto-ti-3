@@ -5,7 +5,7 @@
     ViewBag.Title = "TrainerList";
 }
 
-<h2>TrainerList</h2>
+<h2>Trainer</h2>
 
 @if (User.Identity.IsAuthenticated)
 {
@@ -61,5 +61,7 @@
 
 </table>
 
-<div>Page @(Model.PageNumber > Model.PageCount ? 1 : Model.PageNumber) of @Model.PageCount </div>
-@Html.PagedListPager(Model, page => Url.Action("TrainerList", "Trainer", new { page }))
+<div class="d-flex justify-content-sm-between">
+    @Html.PagedListPager(Model, page => Url.Action("TrainerList", "Trainer", new { page }))
+    <span>Page @(Model.PageNumber > Model.PageCount ? 1 : Model.PageNumber) of @Model.PageCount</span>
+</div>
