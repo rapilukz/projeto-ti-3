@@ -26,13 +26,6 @@
             @Html.DisplayFor(model => model.coaching_license)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.photo_path)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.photo_path)
-        </dd>
 
         <dt>
             @Html.DisplayNameFor(model => model.Team.team_name)
@@ -42,6 +35,20 @@
             @Html.DisplayFor(model => model.Team.team_name)
         </dd>
 
+        <dt>
+            Photo
+        </dt>
+
+        <dd>
+            @if (Model.photo_path == null || String.IsNullOrEmpty(Model.photo_path))
+            {
+                <img width="120" src="@Url.Content("~/fotos/coachs/no-logo.png")" alt="" />
+            }
+            else
+            {
+                <img width="120" src="@Url.Content("~/fotos/coachs/" + System.IO.Path.GetFileName(Model.photo_path))" alt="" />
+            }
+        </dd>
     </dl>
 </div>
 <p>

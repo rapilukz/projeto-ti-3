@@ -35,11 +35,18 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.photo_path)
+            Photo
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.photo_path)
+            @if (Model.photo_path == null || String.IsNullOrEmpty(Model.photo_path))
+            {
+                <img width="120" src="@Url.Content("~/fotos/teams/no-logo.png")" alt="" />
+            }
+            else
+            {
+                <img width="120" src="@Url.Content("~/fotos/teams/" + System.IO.Path.GetFileName(Model.photo_path))" alt="" />
+            }
         </dd>
 
     </dl>
