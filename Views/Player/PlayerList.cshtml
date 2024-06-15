@@ -8,7 +8,7 @@
 <h2>Players</h2>
 
 <p>
-    @Html.ActionLink("Create New", "InsertPlayer", null, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Create New", "InsertPlayer", null, new { @class = "icon-button btn btn-primary fa fa-plus" })
 </p>
 <h3>@ViewBag.msg</h3>
 <table class="table table-responsive table-bordered table-striped">
@@ -19,7 +19,10 @@
         <th>Position</th>
         <th>Birthdate</th>
         <th>Team</th>
-        <th></th>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <th></th>
+        }
     </tr>
 
     @foreach (var item in Model)
@@ -50,10 +53,13 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Team.team_name)
             </td>
-            <td class="actions-row">
-                @Html.ActionLink("Edit", "EditPlayer", new { id = item.player_id }, new { @class = "icon-button btn btn-primary fa fa-pencil" })
-                @Html.ActionLink("Delete", "DeletePlayer", new { id = item.player_id }, new { @class = "icon-button btn btn-danger fa fa-trash" })
-            </td>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <td class="actions-row">
+                    @Html.ActionLink("Edit", "EditPlayer", new { id = item.player_id }, new { @class = "icon-button btn btn-primary fa fa-pencil" })
+                    @Html.ActionLink("Delete", "DeletePlayer", new { id = item.player_id }, new { @class = "icon-button btn btn-danger fa fa-trash" })
+                </td>               
+            }
         </tr>
     }
 

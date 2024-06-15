@@ -3,40 +3,61 @@
     ViewBag.Title = "Register";
 }
 
-<main aria-labelledby="title">
-    <h2 id="title">@ViewBag.Title.</h2>
+<div class="main-container">
+    <div class="form-container">
+        <div class="sign-up-content">
+            @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { role = "form", enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+                <h2>Create a new account</h2>
 
-    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { role = "form" }))
-    {
-        @Html.AntiForgeryToken()
-        <h4>Create a new account.</h4>
-        <hr />
-        @Html.ValidationSummary("", new { @class = "text-danger" })
-        <div class="row">
-            @Html.LabelFor(m => m.Email, new { @class = "col-md-2 col-form-label" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-            </div>
+                <div class="user-photo-container">
+                    <img class="user-photo" src="~/fotos/users/empty.jpg" id="foto" alt="" />
+                </div>
+
+                <div class="form-content">
+                    <div class="row">
+                        @Html.LabelFor(m => m.Email, new { @class = "" })
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+
+                    </div>
+                    <div class="row">
+                        @Html.LabelFor(m => m.Password, new { @class = "" })
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="row">
+                        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "" })
+                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="row">
+                        @Html.LabelFor(m => m.Photo_path, new { @class = "" })
+                        <input type="file" id="fich" name="fich" class="form-control" onchange="previewFile(this);" />
+                    </div>
+                    <div class="row mt-4 d-flex align-items-center">
+                        <input type="submit" value="Register" class="btn btn-primary w-100" />
+                    </div>
+                </div>
+            }
         </div>
-        <div class="row">
-            @Html.LabelFor(m => m.Password, new { @class = "col-md-2 col-form-label" })
-            <div class="col-md-10">
-                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-            </div>
-        </div>
-        <div class="row">
-            @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 col-form-label" })
-            <div class="col-md-10">
-                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
-            </div>
-        </div>
-        <div class="row">
-            <div class="offset-md-2 col-md-10">
-                <input type="submit" value="Register" class="btn btn-outline-dark" />
-            </div>
-        </div>
+    </div>
+</div>
+
+<script>
+    function previewFile(input) {
+        var file = $("input[type=file]").get(0).files[0];
+        if (file) {
+            var reader = new FileReader();
+            reader.onload = function () {
+                $("#foto").attr("src", reader.result);
+            }
+            reader.readAsDataURL(file);
+        }
     }
-</main>
+</script>
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

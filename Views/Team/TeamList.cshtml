@@ -10,7 +10,7 @@
 <h2>Teams</h2>
 
 <p>
-    @Html.ActionLink("Create New", "InsertTeam", null, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Create New", "InsertTeam", null, new { @class = "icon-button btn btn-primary fa fa-plus" })
 </p>
 <table class="table table-responsive table-bordered table-striped">
     <tr class="text-center">
@@ -19,8 +19,10 @@
         <th>Logo</th>
         <th>Founded in</th>
         <th>Country</th>
-        <th>
-        </th>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <th></th>
+        }
     </tr>
 
     @foreach (var item in Model)
@@ -48,10 +50,13 @@
             <td>
                 @Html.DisplayFor(modelItem => item.country)
             </td>
-            <td class="actions-row">
-                @Html.ActionLink("Edit", "EditTeam", new { id = item.team_id }, new { @class = "icon-button btn btn-primary fa fa-pencil" })
-                @Html.ActionLink("Delete", "DeleteTeam", new { id = item.team_id } , new { @class = "icon-button btn btn-danger fa fa-trash" })
-            </td>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <td class="actions-row">
+                    @Html.ActionLink("Edit", "EditTeam", new { id = item.team_id }, new { @class = "icon-button btn btn-primary fa fa-pencil" })
+                    @Html.ActionLink("Delete", "DeleteTeam", new { id = item.team_id }, new { @class = "icon-button btn btn-danger fa fa-trash" })
+                </td>
+            }
         </tr>
     }
 
