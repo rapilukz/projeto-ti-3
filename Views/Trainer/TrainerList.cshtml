@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Maio11_Best.Models.trainer>
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<Maio11_Best.Models.trainer>
 
 @{
     ViewBag.Title = "TrainerList";
@@ -18,32 +19,36 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr class="text-center">
-        <td>
-            @Html.DisplayFor(modelItem => item.trainer_name)
-        </td>
-        <td>
-            @if (item.photo_path == null || String.IsNullOrEmpty(item.photo_path))
-            {
-                <img width="50" src="@Url.Content("~/fotos/coachs/no-coach.jpg")" alt="" />
-            }
-            else
-            {
-                <img width="50" src="@Url.Content("~/fotos/coachs/" + System.IO.Path.GetFileName(item.photo_path))" alt="" />
-            }
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.coaching_license)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Team.team_name)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "EditTrainer", new { id = item.trainer_id }, new { @class = "btn btn-primary" })
-            @Html.ActionLink("Delete", "DeleteTrainer", new { id = item.trainer_id }, new { @class = "btn btn-danger" })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.trainer_name)
+            </td>
+            <td>
+                @if (item.photo_path == null || String.IsNullOrEmpty(item.photo_path))
+                {
+                    <img width="50" src="@Url.Content("~/fotos/coachs/no-coach.jpg")" alt="" />
+                }
+                else
+                {
+                    <img width="50" src="@Url.Content("~/fotos/coachs/" + System.IO.Path.GetFileName(item.photo_path))" alt="" />
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.coaching_license)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Team.team_name)
+            </td>
+            <td class="actions-row">
+                @Html.ActionLink("Edit", "EditTrainer", new { id = item.trainer_id }, new { @class = "icon-button btn btn-primary fa fa-pencil" })
+                @Html.ActionLink("Delete", "DeleteTrainer", new { id = item.trainer_id }, new { @class = "icon-button btn btn-danger fa fa-trash" })
+            </td>
+        </tr>
+    }
 
 </table>
+
+<div>Page @(Model.PageNumber > Model.PageCount ? 1 : Model.PageNumber) of @Model.PageCount </div>
+@Html.PagedListPager(Model, page => Url.Action("TrainerList", "Trainer", new { page }))

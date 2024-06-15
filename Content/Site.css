@@ -18,3 +18,20 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.icon-button {
+    margin-right: 5px;
+}
+
+.icon-button::before {
+    margin-right: 5px;
+}
+
+.actions-row {
+    width: 250px;
+}
+
+td {
+    text-align: center;
+    vertical-align: middle;
+}

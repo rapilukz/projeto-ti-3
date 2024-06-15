@@ -5,19 +5,24 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
+using PagedList.Mvc;
+using PagedList;
 
 namespace Maio11_Best.Controllers
 {
     public class PlayerController : Controller
     {
         // GET: Player
-        public ActionResult PlayerList(String msg)
+        public ActionResult PlayerList(string msg, int? page)
         {
             ViewBag.msg = msg;
+            ViewBag.page = page;
+            int pageSize = 5;
+            int currentPage = page ?? 1;
             using (DbModel db = new DbModel())
             {
                 List<player> players = db.players.Include(p => p.Team).ToList();
-                return View(players);
+                return View(players.ToPagedList(currentPage, pageSize));
             }
 
         }

@@ -27,6 +27,8 @@ namespace Maio11_Best
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
+                      "~/Content/PagedList.css",
+                      "~/Content/font-awesome.css",
                       "~/Content/site.css"));
         }
     }

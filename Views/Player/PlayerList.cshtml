@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Maio11_Best.Models.player>
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<Maio11_Best.Models.player>
 
 @{
     ViewBag.Title = "PlayerList";
@@ -21,38 +22,42 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr class="text-center">
-        <td>
-            @Html.DisplayFor(modelItem => item.player_id)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.player_name)
-        </td>
-        <td>
-            @if (item.photo_path == null || String.IsNullOrEmpty(item.photo_path))
-            {
-                <img width="50" src="@Url.Content("~/fotos/players/no-player.jpg")" alt="" />
-            }
-            else
-            {
-                <img width="50" src="@Url.Content("~/fotos/players/" + System.IO.Path.GetFileName(item.photo_path))" alt="" />
-            }
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.position)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.birthdate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Team.team_name)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "EditPlayer", new { id = item.player_id }, new { @class = "btn btn-primary" })
-            @Html.ActionLink("Delete", "DeletePlayer", new { id = item.player_id }, new { @class = "btn btn-danger" })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.player_id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.player_name)
+            </td>
+            <td>
+                @if (item.photo_path == null || String.IsNullOrEmpty(item.photo_path))
+                {
+                    <img width="50" src="@Url.Content("~/fotos/players/no-player.jpg")" alt="" />
+                }
+                else
+                {
+                    <img width="50" src="@Url.Content("~/fotos/players/" + System.IO.Path.GetFileName(item.photo_path))" alt="" />
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.position)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.birthdate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Team.team_name)
+            </td>
+            <td class="actions-row">
+                @Html.ActionLink("Edit", "EditPlayer", new { id = item.player_id }, new { @class = "icon-button btn btn-primary fa fa-pencil" })
+                @Html.ActionLink("Delete", "DeletePlayer", new { id = item.player_id }, new { @class = "icon-button btn btn-danger fa fa-trash" })
+            </td>
+        </tr>
+    }
 
 </table>
+
+<div>Page @(Model.PageNumber > Model.PageCount ? 1 : Model.PageNumber) of @Model.PageCount </div>
+@Html.PagedListPager(Model, page => Url.Action("PlayerList", "Player", new { page }))

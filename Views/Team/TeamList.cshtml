@@ -1,6 +1,7 @@
 ﻿@using System;
 @using System.IO;
-@model IEnumerable<Maio11_Best.Models.Team>
+@using PagedList.Mvc
+@model PagedList.IPagedList<Maio11_Best.Models.Team>
 
 @{
     ViewBag.Title = "Teams";
@@ -24,7 +25,7 @@
 
     @foreach (var item in Model)
     {
-        <tr class="text-center">
+        <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.team_id)
             </td>
@@ -47,11 +48,14 @@
             <td>
                 @Html.DisplayFor(modelItem => item.country)
             </td>
-            <td>
-                @Html.ActionLink("Edit", "EditTeam", new { id = item.team_id }, new { @class = "btn btn-primary" })
-                @Html.ActionLink("Delete", "DeleteTeam", new { id = item.team_id } , new { @class = "btn btn-danger" })
+            <td class="actions-row">
+                @Html.ActionLink("Edit", "EditTeam", new { id = item.team_id }, new { @class = "icon-button btn btn-primary fa fa-pencil" })
+                @Html.ActionLink("Delete", "DeleteTeam", new { id = item.team_id } , new { @class = "icon-button btn btn-danger fa fa-trash" })
             </td>
         </tr>
     }
 
 </table>
+
+<div>Page @(Model.PageNumber > Model.PageCount ? 1 : Model.PageNumber) of @Model.PageCount </div>
+@Html.PagedListPager(Model, page => Url.Action("TeamList", "Team", new { page }))

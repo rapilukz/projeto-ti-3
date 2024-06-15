@@ -4,20 +4,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Data.Entity;
+using PagedList.Mvc;
+using PagedList;
 
 namespace Maio11_Best.Controllers
 {
     public class TeamController : Controller
     {
         // GET: Team
-        public ActionResult TeamList(String msg)
+        public ActionResult TeamList(string msg, int? page)
         {
             ViewBag.msg = msg;
+            ViewBag.page = page;
+            int pageSize = 5;
+            int currentPage = page ?? 1;
             using (DbModel db = new DbModel())
             {
                 List<Team> teams = db.Teams.ToList();
-                return View(teams);
+                return View(teams.ToPagedList(currentPage, pageSize));
             }
 
         }
