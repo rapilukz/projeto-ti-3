@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using System.Data.Entity;
 using PagedList.Mvc;
 using PagedList;
+using OfficeOpenXml;
 
 namespace Maio11_Best.Controllers
 {
@@ -164,6 +165,49 @@ namespace Maio11_Best.Controllers
                 else
                 {
                     return RedirectToAction("PlayerList", new { msg = "Registo não encontrado" });
+                }
+            }
+        }
+
+        public void ExportToExcel()
+        {
+            using (DbModel db = new DbModel())
+            {
+                List<player> players = db.players.Include(p => p.Team).ToList();
+
+                // Set the license context for EPPlus
+                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+                using (var package = new ExcelPackage())
+                {
+
+                    var worksheet = package.Workbook.Worksheets.Add("Players");
+                    // Add headers
+                    worksheet.Cells[1, 1].Value = "Player ID";
+                    worksheet.Cells[1, 2].Value = "Player Name";
+                    worksheet.Cells[1, 3].Value = "Birthdate";
+                    worksheet.Cells[1, 4].Value = "Team ID";
+                    worksheet.Cells[1, 5].Value = "Team Name";
+                    worksheet.Cells[1, 6].Value = "Photo";
+
+                    for (int i = 0; i < players.Count; i++)
+                    {
+                        worksheet.Cells[i + 2, 1].Value = players[i].player_id;
+                        worksheet.Cells[i + 2, 2].Value = players[i].player_name;
+                        worksheet.Cells[i + 2, 3].Value = players[i].birthdate.Value.ToString("yyyy-MM-dd");
+                        worksheet.Cells[i + 2, 4].Value = players[i].team_id;
+                        worksheet.Cells[i + 2, 5].Value = players[i].Team.team_name;
+                        worksheet.Cells[i + 2, 6].Value = players[i].photo_path;
+                    }
+
+                    // Convert to byte array
+                    var excelData = package.GetAsByteArray();
+
+                    // Send the file to the browser for download
+                    Response.Clear();
+                    Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                    Response.AddHeader("content-disposition", "attachment; filename=Players.xlsx");
+                    Response.BinaryWrite(excelData);
+                    Response.End();
                 }
             }
         }

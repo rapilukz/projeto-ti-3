@@ -6,10 +6,13 @@
 }
 
 <h2>Players</h2>
-
-<p>
-    @Html.ActionLink("Create New", "InsertPlayer", null, new { @class = "icon-button btn btn-primary fa fa-plus" })
-</p>
+@if (User.Identity.IsAuthenticated)
+{
+    <div class="mb-2">
+        @Html.ActionLink("Create New", "InsertPlayer", null, new { @class = "icon-button btn btn-primary fa fa-plus" })
+        @Html.ActionLink("Export to Excel", "ExportToExcel", null, new { @class = "icon-button btn btn-success fa fa-file-excel-o" })
+    </div>
+}
 <h3>@ViewBag.msg</h3>
 <table class="table table-responsive table-bordered table-striped">
     <tr class="text-center">
@@ -48,7 +51,7 @@
                 @Html.DisplayFor(modelItem => item.position)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.birthdate)
+                @item.birthdate.Value.ToString("yyyy-MM-dd")
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Team.team_name)
@@ -58,7 +61,8 @@
                 <td class="actions-row">
                     @Html.ActionLink("Edit", "EditPlayer", new { id = item.player_id }, new { @class = "icon-button btn btn-primary fa fa-pencil" })
                     @Html.ActionLink("Delete", "DeletePlayer", new { id = item.player_id }, new { @class = "icon-button btn btn-danger fa fa-trash" })
-                </td>               
+                </td>
+
             }
         </tr>
     }

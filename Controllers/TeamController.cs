@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using PagedList.Mvc;
 using PagedList;
+using OfficeOpenXml;
 
 namespace Maio11_Best.Controllers
 {
@@ -159,5 +159,46 @@ namespace Maio11_Best.Controllers
             }
         }
 
+        public void ExportToExcel()
+        {
+            using (DbModel db = new DbModel())
+            {
+                List<Team> teams = db.Teams.ToList();
+
+                // Set the license context for EPPlus
+                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+                using(var package = new ExcelPackage())
+                {
+
+                    var worksheet = package.Workbook.Worksheets.Add("Teams");
+                    // Add headers
+                    worksheet.Cells[1, 1].Value = "Team ID";
+                    worksheet.Cells[1, 2].Value = "Team Name";
+                    worksheet.Cells[1, 3].Value = "Foundation Year";
+                    worksheet.Cells[1, 4].Value = "Country";
+                    worksheet.Cells[1, 5].Value = "Photo Path";
+
+                    // Add values
+                    for (int i = 0; i < teams.Count; i++)
+                    {
+                        worksheet.Cells[i + 2, 1].Value = teams[i].team_id;
+                        worksheet.Cells[i + 2, 2].Value = teams[i].team_name;
+                        worksheet.Cells[i + 2, 3].Value = teams[i].foundation_year;
+                        worksheet.Cells[i + 2, 4].Value = teams[i].country;
+                        worksheet.Cells[i + 2, 5].Value = teams[i].photo_path;
+                    }
+
+                    // Convert to byte array
+                    var excelData = package.GetAsByteArray();
+
+                    // Send the file to the browser for download
+                    Response.Clear();
+                    Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                    Response.AddHeader("content-disposition", "attachment; filename=Teams.xlsx");
+                    Response.BinaryWrite(excelData);
+                    Response.End();
+                }
+            }
+        }
     }
 }

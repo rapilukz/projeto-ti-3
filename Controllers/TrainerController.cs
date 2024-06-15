@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using System.Data.Entity;
 using PagedList.Mvc;
 using PagedList;
+using OfficeOpenXml;
 
 namespace Maio11_Best.Controllers
 {
@@ -86,8 +87,8 @@ namespace Maio11_Best.Controllers
             using (DbModel db = new DbModel())
             {
                 try
-                {   
-                    trainer trainerToDelete  = db.trainers.Find(trainer_id);
+                {
+                    trainer trainerToDelete = db.trainers.Find(trainer_id);
 
                     if (trainerToDelete == null)
                     {
@@ -161,6 +162,49 @@ namespace Maio11_Best.Controllers
                 else
                 {
                     return RedirectToAction("TrainerList", new { msg = "Registo não encontrado" });
+                }
+            }
+        }
+
+        public void ExportToExcel()
+        {
+            using (DbModel db = new DbModel())
+            {
+                List<trainer> trainers = db.trainers.Include(p => p.Team).ToList();
+
+                // Set the license context for EPPlus
+                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+                using (var package = new ExcelPackage())
+                {
+
+                    var worksheet = package.Workbook.Worksheets.Add("Trainers");
+                    // Add headers
+                    worksheet.Cells[1, 1].Value = "Trainer ID";
+                    worksheet.Cells[1, 2].Value = "Trainer Name";
+                    worksheet.Cells[1, 3].Value = "Coaching License";
+                    worksheet.Cells[1, 4].Value = "Team ID";
+                    worksheet.Cells[1, 5].Value = "Team Name";
+                    worksheet.Cells[1, 6].Value = "Photo";
+
+                    for (int i = 0; i < trainers.Count; i++)
+                    {
+                        worksheet.Cells[i + 2, 1].Value = trainers[i].trainer_id;
+                        worksheet.Cells[i + 2, 2].Value = trainers[i].trainer_name;
+                        worksheet.Cells[i + 2, 3].Value = trainers[i].coaching_license;
+                        worksheet.Cells[i + 2, 4].Value = trainers[i].team_id;
+                        worksheet.Cells[i + 2, 5].Value = trainers[i].Team.team_name;
+                        worksheet.Cells[i + 2, 6].Value = trainers[i].photo_path;
+                    }
+
+                    // Convert to byte array
+                    var excelData = package.GetAsByteArray();
+
+                    // Send the file to the browser for download
+                    Response.Clear();
+                    Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                    Response.AddHeader("content-disposition", "attachment; filename=Trainers.xlsx");
+                    Response.BinaryWrite(excelData);
+                    Response.End();
                 }
             }
         }

@@ -7,9 +7,14 @@
 
 <h2>TrainerList</h2>
 
-<p>
-    @Html.ActionLink("Create New", "InsertTrainer", null, new { @class = "icon-button btn btn-primary fa fa-plus" })
-</p>
+@if (User.Identity.IsAuthenticated)
+{
+    <div class="mb-2">
+        @Html.ActionLink("Create New", "InsertTrainer", null, new { @class = "icon-button btn btn-primary fa fa-plus" })
+        @Html.ActionLink("Export to Excel", "ExportToExcel", null, new { @class = "icon-button btn btn-success fa fa-file-excel-o" })
+    </div>
+}
+
 <table class="table table-responsive table-bordered table-striped">
     <tr class="text-center">
         <th>Trainer</th>
