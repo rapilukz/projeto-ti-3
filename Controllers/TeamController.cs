@@ -40,7 +40,7 @@ namespace Maio11_Best.Controllers
                                       {
                                           TeamId = m.team_id,
                                           TeamName = m.team_name,
-                                          Country = m.team_name,
+                                          Country = m.country,
                                           FoundationYear = m.foundation_year,
                                           PhotoPath = m.photo_path
                                       }).ToList();

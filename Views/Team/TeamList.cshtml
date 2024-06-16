@@ -52,11 +52,12 @@
 
                 },
                 "columns": [
-                    { data: "TeamId", title: "Foto", className: "id-row" },
+                    { data: "TeamId", title: "Id", className: "id-row" },
                     { data: "TeamName", title: "Name", className: "name-row" },
                     {
                         "data": "PhotoPath",
                         "title": "Photo",
+                        "className": "text-center",
                         "autowidth": true,
                         "render": function (data, type, row) {
                             if (data == null || data == "") {
