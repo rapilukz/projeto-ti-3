@@ -5,27 +5,43 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
-using PagedList.Mvc;
-using PagedList;
 using OfficeOpenXml;
 
 namespace Maio11_Best.Controllers
 {
+
     public class PlayerController : Controller
     {
         // GET: Player
-        public ActionResult PlayerList(string msg, int? page)
+        public ActionResult PlayerList(string msg)
         {
             ViewBag.msg = msg;
-            ViewBag.page = page;
-            int pageSize = 5;
-            int currentPage = page ?? 1;
             using (DbModel db = new DbModel())
             {
                 List<player> players = db.players.Include(p => p.Team).ToList();
-                return View(players.ToPagedList(currentPage, pageSize));
+                return View(players);
             }
 
+        }
+
+        public ActionResult GetPlayers()
+        {
+            using (DbModel db = new DbModel())
+            {
+                List<MyPlayer> players = db.players
+                     .Include(p => p.Team)
+                     .Select(m => new MyPlayer
+                     {
+                         Id = m.player_id,
+                         Name = m.player_name,
+                         Position = m.position,
+                         Birthdate = m.birthdate,
+                         TeamName = m.Team.team_name,
+                         PhotoPath = m.photo_path
+                     }).ToList();
+
+                return Json(new { data = players }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         public ActionResult DetailsPlayer(int id)

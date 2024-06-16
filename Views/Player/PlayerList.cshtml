@@ -1,11 +1,11 @@
-﻿@using PagedList.Mvc
-@model PagedList.IPagedList<Maio11_Best.Models.player>
-
-@{
+﻿@{
     ViewBag.Title = "PlayerList";
+    var isAuthenticated = User.Identity.IsAuthenticated;
 }
 
 <h2>Players</h2>
+<link href="~/DataTables/datatables.css" rel="stylesheet">
+
 @if (User.Identity.IsAuthenticated)
 {
     <div class="mb-2">
@@ -13,8 +13,9 @@
         @Html.ActionLink("Export to Excel", "ExportToExcel", null, new { @class = "icon-button btn btn-success fa fa-file-excel-o" })
     </div>
 }
+
 <h3>@ViewBag.msg</h3>
-<table class="table table-responsive table-bordered table-striped">
+<table id="tabela" class="table table-responsive table-bordered table-striped">
     <tr class="text-center">
         <th>Id</th>
         <th>Name</th>
@@ -24,51 +25,82 @@
         <th>Team</th>
         <th></th>
     </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.player_id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.player_name)
-            </td>
-            <td>
-                @if (item.photo_path == null || String.IsNullOrEmpty(item.photo_path))
-                {
-                    <img width="50" src="@Url.Content("~/fotos/players/no-player.jpg")" alt="" />
-                }
-                else
-                {
-                    <img width="50" src="@Url.Content("~/fotos/players/" + System.IO.Path.GetFileName(item.photo_path))" alt="" />
-                }
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.position)
-            </td>
-            <td>
-                @item.birthdate.Value.ToString("yyyy-MM-dd")
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Team.team_name)
-            </td>
-
-            <td class="actions-row">
-                @Html.ActionLink("Details", "DetailsPlayer", new { id = item.player_id }, new { @class = "icon-button btn btn-secondary fa fa-eye" })
-                @if (User.Identity.IsAuthenticated)
-                {
-                    @Html.ActionLink("Edit", "EditPlayer", new { id = item.player_id }, new { @class = "icon-button btn btn-primary fa fa-pencil" })
-                    @Html.ActionLink("Delete", "DeletePlayer", new { id = item.player_id }, new { @class = "icon-button btn btn-danger fa fa-trash" })
-                }
-            </td>
-
-        </tr>
-    }
-
 </table>
 
-<div class="d-flex justify-content-sm-between h-auto">
-    @Html.PagedListPager(Model, page => Url.Action("PlayerList", "Player", new { page }))
-    <span>Page @(Model.PageNumber > Model.PageCount ? 1 : Model.PageNumber) of @Model.PageCount</span>
-</div>
+@section tabela {
+    <script src="~/DataTables/datatables.js"></script>
+
+    <script>
+        var isAuthenticated = @Html.Raw(Json.Encode(isAuthenticated));
+        $(function () {
+            tabela = $("#tabela").DataTable({
+                "language": {
+                    "lengthMenu": "_MENU_",
+                    "search": "",
+                    "searchPlaceholder": "Search...",
+                    "zeroRecords": "Zero Records Found",
+                    "info": "Page _PAGE_ of _PAGES_",
+                    "infoEmpty": "No Records",
+                },
+                "processing": true,
+                "filter": true,
+                "lengthMenu": [[3, 5, 10, 25, 50, -1], [3, 5, 10, 25, 50, "Todos"]],
+                "pageLength": 3,
+                "ajax": {
+                    'url': "/Player/GetPlayers",
+                    'type': 'get',
+                    'dataType': 'json'
+
+                },
+                "columns": [
+                    { data: "Id", title: "Id", className: "id-row" },
+                    { data: "Name", title: "Name", className: "name-row" },
+                    {
+                        "data": "PhotoPath",
+                        "title": "Photo",
+                        "className": "text-center",
+                        "autowidth": true,
+                        "render": function (data, type, row) {
+                            if (data == null || data == "") {
+                                return '<img width="50" src="@Url.Content("~/fotos/players/no-player.jpg")" alt="No Logo" />';
+                            } else {
+                                return '<img width="50" src="@Url.Content("~/fotos/players/")' + data + '" alt="Team Logo" />';
+                            }
+                        }
+
+                    },
+                    { data: "Position", title: "Position", className: "position-row" },
+                    {
+                        data: "Birthdate",
+                        title: "Birthdate",
+                        className: "birthdate-row",
+                        render: function (data, type, row) {
+                            if (data) {
+                                var date = new Date(parseInt(data.substr(6)));
+                                var day = ('0' + date.getDate()).slice(-2);
+                                var month = ('0' + (date.getMonth() + 1)).slice(-2);
+                                var year = date.getFullYear();
+                                return day + '-' + month + '-' + year;
+                            } else {
+                                return "";
+                            }
+                        }
+                    },
+                    { data: "TeamName", title: "Team", className: "team-row" },
+                    {
+                        data: "Id",
+                        className: "actions-row",
+                        render: function (data, type, row) {
+                            let actions = '<a href="@Url.Action("DetailsPlayer", "Player")/' + row.Id + '" class="icon-button btn btn-secondary fa fa-eye">Details</a>';
+                            if (isAuthenticated) {
+                                actions += ' <a href="@Url.Action("EditPlayer", "Player")/' + row.Id + '" class="icon-button btn btn-primary fa fa-pencil">Edit</a>';
+                                actions += ' <a href="@Url.Action("DeletePlayer", "Player")/' + row.Id + '" class="icon-button btn btn-danger fa fa-trash">Delete</a>';
+                            }
+                            return actions;
+                        }
+                    },
+                ]
+            });
+        });
+    </script>
+}

@@ -80,10 +80,6 @@ namespace Maio11_Best.Models
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
-
-        [EmailAddress]
-        [Display(Name = "Photo")]
-        public string Photo_path { get; set; }
     }
 
     public class ResetPasswordViewModel

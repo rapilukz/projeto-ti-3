@@ -9,15 +9,6 @@ using System.Data.Entity;
 
 namespace Maio11_Best.Controllers
 {
-    public class MyTeam
-    {
-        public int TeamId { get; set; }
-        public string TeamName { get; set; }
-        public int? FoundationYear { get; set; }
-        public string Country { get; set; }
-        public string PhotoPath { get; set; }
-    }
-
     public class TeamController : Controller
     {
         // GET: Team
@@ -35,15 +26,15 @@ namespace Maio11_Best.Controllers
         {
             using (DbModel db = new DbModel())
             {
-                List<MyTeam> teams = (from m in db.Teams
-                                      select new MyTeam
-                                      {
-                                          TeamId = m.team_id,
-                                          TeamName = m.team_name,
-                                          Country = m.country,
-                                          FoundationYear = m.foundation_year,
-                                          PhotoPath = m.photo_path
-                                      }).ToList();
+                List<MyTeam> teams = db.Teams.Select(m => new MyTeam
+                {
+                    TeamId = m.team_id,
+                    TeamName = m.team_name,
+                    Country = m.country,
+                    FoundationYear = m.foundation_year,
+                    PhotoPath = m.photo_path
+
+                }).ToList();
 
                 return Json(new { data = teams }, JsonRequestBehavior.AllowGet);
             }

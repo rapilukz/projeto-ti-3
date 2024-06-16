@@ -34,17 +34,17 @@
         $(function () {
             tabela = $("#tabela").DataTable({
                 "language": {
-                    "lengthMenu": "Exibe _MENU_ Registros por página",
-                    "search": "Procurar",
-                    "zeroRecords": "Nada foi encontrado",
-                    "info": "Exibindo página _PAGE_ de _PAGES_",
-                    "infoEmpty": "Sem registros",
-                    "infoFiltered": "(filtrado de _MAX_ regitros totais)"
+                    "lengthMenu": "_MENU_",
+                    "search": "",
+                    "searchPlaceholder": "Search...",
+                    "zeroRecords": "Zero Records Found",
+                    "info": "Page _PAGE_ of _PAGES_",
+                    "infoEmpty": "No Records",
                 },
-                "processing": true,    // mostrar a progress bar
-                "filter": true,            // habilita o filtro(search box)
-                "lengthMenu": [[3, 5, 10, 25, 50, -1], [3, 5, 10, 25, 50, "Todos"]], //define as opções de paginação
-                "pageLength": 3,      // define o tamanho da página
+                "processing": true,
+                "filter": true,
+                "lengthMenu": [[3, 5, 10, 25, 50, -1], [3, 5, 10, 25, 50, "Todos"]],
+                "pageLength": 3,
                 "ajax": {
                     'url': "/Team/GetTeams",
                     'type': 'get',

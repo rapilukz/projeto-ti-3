@@ -14,16 +14,13 @@ namespace Maio11_Best.Controllers
     public class TrainerController : Controller
     {
         // GET: Player
-        public ActionResult TrainerList(string msg, int? page)
+        public ActionResult TrainerList(string msg)
         {
-            ViewBag.msg = msg;
-            ViewBag.page = page;
-            int pageSize = 5;
-            int currentPage = page ?? 1;
             using (DbModel db = new DbModel())
             {
+                ViewBag.msg = msg;
                 List<trainer> trainers = db.trainers.Include(p => p.Team).ToList();
-                return View(trainers.ToPagedList(currentPage, pageSize));
+                return View(trainers);
             }
 
         }

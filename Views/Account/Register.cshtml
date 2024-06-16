@@ -11,10 +11,6 @@
                 @Html.AntiForgeryToken()
                 <h2>Create a new account</h2>
 
-                <div class="user-photo-container">
-                    <img class="user-photo" src="~/fotos/users/empty.jpg" id="foto" alt="" />
-                </div>
-
                 <div class="form-content">
                     <div class="row">
                         @Html.LabelFor(m => m.Email, new { @class = "" })
@@ -31,10 +27,6 @@
                         @Html.LabelFor(m => m.ConfirmPassword, new { @class = "" })
                         @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
-                    </div>
-                    <div class="row">
-                        @Html.LabelFor(m => m.Photo_path, new { @class = "" })
-                        <input type="file" id="fich" name="fich" class="form-control" onchange="previewFile(this);" />
                     </div>
                     <div class="row mt-4 d-flex align-items-center">
                         <input type="submit" value="Register" class="btn btn-primary w-100" />
