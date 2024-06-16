@@ -25,6 +25,25 @@ namespace Maio11_Best.Controllers
 
         }
 
+        public ActionResult GetTrainers()
+        {
+            using (DbModel db = new DbModel())
+            {
+                List<MyTrainer> trainers = db.trainers
+                     .Include(p => p.Team)
+                     .Select(m => new MyTrainer
+                     {
+                         Id = m.trainer_id,
+                         Name = m.trainer_name,
+                         CoachingLicense = m.coaching_license,
+                         TeamName = m.Team.team_name,
+                         PhotoPath = m.photo_path
+                     }).ToList();
+
+                return Json(new { data = trainers }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         public ActionResult DetailsTrainer(int id)
         {
             using(DbModel db = new DbModel())

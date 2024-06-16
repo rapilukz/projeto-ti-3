@@ -9,7 +9,7 @@ namespace Maio11_Best.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }    
-        public string Coachinglicense { get; set; }
+        public string CoachingLicense { get; set; }
         public string PhotoPath { get; set; }
         public string TeamName { get; set; }
     }

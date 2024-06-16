@@ -1,11 +1,10 @@
-﻿@using PagedList.Mvc
-@model PagedList.IPagedList<Maio11_Best.Models.trainer>
-
-@{
+﻿@{
     ViewBag.Title = "TrainerList";
+    var isAuthenticated = User.Identity.IsAuthenticated;
 }
 
 <h2>Trainer</h2>
+<link href="~/DataTables/datatables.css" rel="stylesheet">
 
 @if (User.Identity.IsAuthenticated)
 {
@@ -15,7 +14,7 @@
     </div>
 }
 
-<table class="table table-responsive table-bordered table-striped">
+<table id="table" class="table table-responsive table-bordered table-striped">
     <tr class="text-center">
         <th>Trainer Id</th>
         <th>Trainer</th>
@@ -24,46 +23,66 @@
         <th>Team</th>
         <th></th>
     </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.trainer_id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.trainer_name)
-            </td>
-            <td>
-                @if (item.photo_path == null || String.IsNullOrEmpty(item.photo_path))
-                {
-                    <img width="50" src="@Url.Content("~/fotos/coachs/no-coach.jpg")" alt="" />
-                }
-                else
-                {
-                    <img width="50" src="@Url.Content("~/fotos/coachs/" + System.IO.Path.GetFileName(item.photo_path))" alt="" />
-                }
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.coaching_license)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Team.team_name)
-            </td>
-            <td class="actions-row">
-                @Html.ActionLink("Details", "DetailsTrainer", new { id = item.trainer_id }, new { @class = "icon-button btn btn-secondary fa fa-eye" })
-                @if (User.Identity.IsAuthenticated)
-                {
-                    @Html.ActionLink("Edit", "EditTrainer", new { id = item.trainer_id }, new { @class = "icon-button btn btn-primary fa fa-pencil" })
-                    @Html.ActionLink("Delete", "DeleteTrainer", new { id = item.trainer_id }, new { @class = "icon-button btn btn-danger fa fa-trash" })
-                }
-            </td>
-        </tr>
-    }
-
 </table>
 
-<div class="d-flex justify-content-sm-between">
-    @Html.PagedListPager(Model, page => Url.Action("TrainerList", "Trainer", new { page }))
-    <span>Page @(Model.PageNumber > Model.PageCount ? 1 : Model.PageNumber) of @Model.PageCount</span>
-</div>
+@section tabela {
+    <script src="~/DataTables/datatables.js"></script>
+
+    <script>
+        var isAuthenticated = @Html.Raw(Json.Encode(isAuthenticated));
+        $(function () {
+            tabela = $("#table").DataTable({
+                "language": {
+                    "lengthMenu": "_MENU_",
+                    "search": "",
+                    "searchPlaceholder": "Search...",
+                    "zeroRecords": "Zero Records Found",
+                    "info": "Page _PAGE_ of _PAGES_",
+                    "infoEmpty": "No Records",
+                },
+                "processing": true,
+                "filter": true,
+                "lengthMenu": [[3, 5, 10, 25, 50, -1], [3, 5, 10, 25, 50, "Todos"]],
+                "pageLength": 5,
+                "ajax": {
+                    'url': "/Trainer/GetTrainers",
+                    'type': 'get',
+                    'dataType': 'json'
+
+                },
+                "columns": [
+                    { data: "Id", title: "Id", className: "id-row" },
+                    { data: "Name", title: "Name", className: "name-row" },
+                    {
+                        "data": "PhotoPath",
+                        "title": "Photo",
+                        "className": "text-center",
+                        "autowidth": true,
+                        "render": function (data, type, row) {
+                            if (data == null || data == "") {
+                                return '<img width="50" src="@Url.Content("~/fotos/coachs/no-coach.jpg")" alt="No Logo" />';
+                            } else {
+                                return '<img width="50" src="@Url.Content("~/fotos/coachs/")' + data + '" alt="Team Logo" />';
+                            }
+                        }
+
+                    },
+                    { data: "CoachingLicense", title: "Coaching License", className: "position-row" },
+                    { data: "TeamName", title: "Team", className: "team-row" },
+                    {
+                        data: "Id",
+                        className: "actions-row",
+                        render: function (data, type, row) {
+                            let actions = '<a href="@Url.Action("DetailsTrainer", "Trainer")/' + row.Id + '" class="icon-button btn btn-secondary fa fa-eye">Details</a>';
+                            if (isAuthenticated) {
+                                actions += ' <a href="@Url.Action("EditTrainer", "Trainer")/' + row.Id + '" class="icon-button btn btn-primary fa fa-pencil">Edit</a>';
+                                actions += ' <a href="@Url.Action("DeleteTrainer", "Trainer")/' + row.Id + '" class="icon-button btn btn-danger fa fa-trash">Delete</a>';
+                            }
+                            return actions;
+                        }
+                    },
+                ]
+            });
+        });
+    </script>
+}

@@ -15,7 +15,7 @@
 }
 
 <h3>@ViewBag.msg</h3>
-<table id="tabela" class="table table-responsive table-bordered table-striped">
+<table id="table" class="table table-responsive table-bordered table-striped">
     <tr class="text-center">
         <th>Id</th>
         <th>Name</th>
@@ -33,7 +33,7 @@
     <script>
         var isAuthenticated = @Html.Raw(Json.Encode(isAuthenticated));
         $(function () {
-            tabela = $("#tabela").DataTable({
+            tabela = $("#table").DataTable({
                 "language": {
                     "lengthMenu": "_MENU_",
                     "search": "",
