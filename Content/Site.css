@@ -1,4 +1,9 @@
-﻿/* Set padding to keep content from hitting the edges */
+﻿:root {
+    --color1: rgba(0, 136, 169, 1);
+    --color1-hover: rgba(0, 136, 169, 0.8);
+}
+
+/* Set padding to keep content from hitting the edges */
 body {
     background-color: #24252a !important;
     height: 100vh;
@@ -125,4 +130,144 @@ input:read-only, input:read-only:focus {
     color: #888; /* Grey text color */
     border: 2px solid #ccc; /* Grey border */
     cursor: not-allowed; /* Not-allowed cursor */
+}
+
+th,
+td {
+	color: #edf0f1 !important;
+}
+
+th {
+	text-align: center !important;
+}
+
+tr {
+	border-color: gray !important;
+	padding-top: 0.25rem;
+}
+
+.table-header {
+	background-color: var(--color1) !important;
+	border: 1px solid var(--color1);
+}
+
+.delete-button {
+	background: none !important;
+	transition: 0.2s;
+}
+
+.delete-button:hover {
+	background: #dc3545 !important;
+}
+
+.insert-button {
+	padding: 5px 12px !important;
+}
+
+.edit-button,
+.insert-button {
+	background: none !important;
+	border: 1px solid var(--color1) !important;
+	transition: 0.2s;
+}
+
+.edit-button:hover,
+.insert-button:hover {
+	background-color: var(--color1) !important;
+	border: 1px solid var(--color1-hover) !important;
+}
+
+#search-container {
+	max-width: 500px;
+}
+
+#search {
+	background: transparent !important;
+	border: 1px solid var(--color1) !important;
+	color: white !important;
+}
+
+#search-container .input-group-text {
+	background-color: var(--color1) !important;
+	border: 1px solid var(--color1) !important;
+}
+
+#search-container .input-group-text i {
+	color: white !important;
+}
+
+/* Datatable styles */
+#team-table_filter {
+	display: flex;
+	justify-content: end;
+	margin-bottom: 0.5rem;
+}
+
+#team-table_filter input {
+	background: transparent !important;
+	padding: 0.25rem 0.5rem;
+	width: 350px;
+	min-height: 30px;
+	border-radius: 0.25rem;
+	border: 1px solid var(--color1) !important;
+	color: white !important;
+}
+
+#team-table_filter input:focus {
+	outline: none;
+}
+
+#team-table_length {
+	display: flex;
+	gap: 0.5rem;
+}
+
+#team-table_length select {
+	border: 1px solid var(--color1) !important;
+	color: #edf0f1;
+	padding: 0.4rem 0.5rem;
+}
+
+#team-table_length select option {
+	color: var(--color1);
+}
+
+.actions-row .edit-button {
+	margin-right: 0.5rem;
+}
+
+#team-table_info {
+	color: #edf0f1;
+}
+
+#team-table_paginate,
+#team-table_next,
+#team-table_previous {
+	color: #edf0f1 !important;
+}
+
+#team-table_previous:not(.disabled):hover,
+#team-table_next:not(.disabled):hover {
+	color: var(--color1) !important;
+	background: none !important;
+	border: none !important;
+	cursor: pointer;
+}
+
+.paginate_button.current {
+	background: var(--color1) !important;
+	border: 1px solid var(--color1) !important;
+	border-radius: 0.25rem;
+	cursor: pointer !important;
+}
+
+span .paginate_button:not(.current):hover {
+	background: none !important;
+	border: 1px solid var(--color1) !important;
+	border-radius: 0.25rem;
+}
+
+option {
+    background: black;
+    border: none;
 }

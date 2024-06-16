@@ -4,27 +4,49 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using PagedList;
 using OfficeOpenXml;
 using System.Data.Entity;
 
 namespace Maio11_Best.Controllers
 {
+    public class MyTeam
+    {
+        public int TeamId { get; set; }
+        public string TeamName { get; set; }
+        public int? FoundationYear { get; set; }
+        public string Country { get; set; }
+        public string PhotoPath { get; set; }
+    }
+
     public class TeamController : Controller
     {
         // GET: Team
-        public ActionResult TeamList(string msg, int? page)
+        public ActionResult TeamList(string msg)
         {
             ViewBag.msg = msg;
-            ViewBag.page = page;
-            int pageSize = 5;
-            int currentPage = page ?? 1;
             using (DbModel db = new DbModel())
             {
                 List<Team> teams = db.Teams.ToList();
-                return View(teams.ToPagedList(currentPage, pageSize));
+                return View(teams);
             }
 
+        }
+        public ActionResult GetTeams()
+        {
+            using (DbModel db = new DbModel())
+            {
+                List<MyTeam> teams = (from m in db.Teams
+                                      select new MyTeam
+                                      {
+                                          TeamId = m.team_id,
+                                          TeamName = m.team_name,
+                                          Country = m.team_name,
+                                          FoundationYear = m.foundation_year,
+                                          PhotoPath = m.photo_path
+                                      }).ToList();
+
+                return Json(new { data = teams }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         public ActionResult DetailsTeam(int id)
@@ -90,7 +112,7 @@ namespace Maio11_Best.Controllers
             using (DbModel db = new DbModel())
             {
                 Team deletedTeam = db.Teams.Find(id ?? -1);
-   
+
                 if (deletedTeam != null)
                 {
                     return View(deletedTeam);
@@ -156,7 +178,7 @@ namespace Maio11_Best.Controllers
                     editedTeam.team_name = team.team_name;
                     editedTeam.foundation_year = team.foundation_year;
                     editedTeam.country = team.country;
-                    if(team.photo_path != null && fich == null)
+                    if (team.photo_path != null && fich == null)
                     {
                         editedTeam.photo_path = team.photo_path;
                     }
@@ -194,7 +216,7 @@ namespace Maio11_Best.Controllers
 
                 // Set the license context for EPPlus
                 ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-                using(var package = new ExcelPackage())
+                using (var package = new ExcelPackage())
                 {
 
                     var worksheet = package.Workbook.Worksheets.Add("Teams");

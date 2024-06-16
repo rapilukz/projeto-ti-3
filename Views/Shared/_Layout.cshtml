@@ -23,7 +23,7 @@
                     <li>@Html.ActionLink("Players", "PlayerList", "Player", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Trainers", "TrainerList", "Trainer", new { area = "" }, new { @class = "nav-link" })</li>
                 </ul>
-                 @Html.Partial("_LoginPartial")
+                @Html.Partial("_LoginPartial")
             </div>
         </div>
     </nav>
@@ -33,6 +33,9 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/validate")
+
     @RenderSection("scripts", required: false)
+    @RenderSection("tabela", required: false)
 </body>
 </html>
