@@ -82,7 +82,7 @@ namespace Maio11_Best.Controllers
                 db.SaveChanges();
                 if (fich != null && fich.FileName.Length > 0 && fich.ContentType.Contains("image"))
                 {
-                    string path = Server.MapPath("~/fotos/coachs/");
+                    string path = Server.MapPath("~/fotos/coaches/");
                     string file = newTrainer.trainer_id.ToString() + System.IO.Path.GetExtension(fich.FileName);
                     newTrainer.photo_path = file;
                     path += file;
@@ -176,7 +176,7 @@ namespace Maio11_Best.Controllers
                     if (fich != null && fich.FileName.Length > 0 && fich.ContentType.Contains("image"))
                     {
 
-                        string path = Server.MapPath("~/fotos/coachs/");
+                        string path = Server.MapPath("~/fotos/coaches/");
                         if (editedTrainer.photo_path != null)
                         {
                             string newPath = path + editedTrainer.photo_path;

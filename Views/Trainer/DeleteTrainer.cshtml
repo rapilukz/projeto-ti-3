@@ -4,53 +4,38 @@
     ViewBag.Title = "DeleteTrainer";
 }
 
-<h2>DeleteTrainer</h2>
-
 <h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>trainer</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            Name
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.trainer_name)
-        </dd>
-
-        <dt>
-            Coaching License
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.coaching_license)
-        </dd>
-
-        <dt>
-            Photo
-        </dt>
-
-        <dd>
+    <div>
+        <div class="form-group mt-2 mb d-flex align-items-center gap-4">
             @if (Model.photo_path == null || String.IsNullOrEmpty(Model.photo_path))
             {
-                <img width="120" src="@Url.Content("~/fotos/coachs/no-coach.png")" alt="" />
+                <img width="60" src="@Url.Content("~/fotos/coaches/no-logo.png")" alt="" />
             }
             else
             {
-                <img width="120" src="@Url.Content("~/fotos/coachs/" + System.IO.Path.GetFileName(Model.photo_path))" alt="" />
+                <img width="60" src="@Url.Content("~/fotos/coaches/" + System.IO.Path.GetFileName(Model.photo_path))" alt="" />
             }
-        </dd>
+            <h4>@Model.trainer_name</h4>
+        </div>
 
-        <dt>
-            Team
-        </dt>
+        <div class="form-horizontal d-flex flex-column gap-3 mt-3">
+            <div class="form-group">
+                @Html.LabelFor(model => model.trainer_name, "Name", htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.EditorFor(model => model.trainer_name, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+            </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Team.team_name)
-        </dd>
+            <div class="form-group">
+                @Html.LabelFor(model => model.coaching_license, "Coaching License", htmlAttributes: new { @class = "control -label col-md-2" })
+                @Html.EditorFor(model => model.coaching_license, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+            </div>
 
-    </dl>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Team.team_name, "Team", htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.EditorFor(model => model.Team.team_name, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+            </div>
+        </div>
+    </div>
 
     @using (Html.BeginForm("DelTrainer", "Trainer"))
     {
@@ -59,9 +44,9 @@
 
         @Html.HiddenFor(model => model.trainer_id)
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-danger" /> |
-            @Html.ActionLink("Back to List", "TrainerList")
+        <div class="form-actions no-color d-flex align-items-center gap-2 mt-4">
+            <input type="submit" value="Delete" class="btn btn-danger" />
+            @Html.ActionLink("Back to List", "TrainerList", null, new { @class="btn btn-primary" })
         </div>
     }
 </div>

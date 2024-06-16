@@ -5,52 +5,42 @@
 }
 
 <h3>Are you sure you want to delete this player?</h3>
-<div>
-    <h4>Player Details</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.player_name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.player_name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.position)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.position)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.birthdate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.birthdate)
-        </dd>
-
-        <dt>
-            Photo
-        </dt>
-        <dd>
+<div class="mt-4">
+    <div>
+        <div class="form-group mt-2 mb d-flex align-items-center gap-4">
             @if (Model.photo_path == null || String.IsNullOrEmpty(Model.photo_path))
             {
-                <img width="120" src="@Url.Content("~/fotos/players/no-player.png")" alt="" />
+                <img width="60" src="@Url.Content("~/fotos/coaches/no-logo.png")" alt="" />
             }
             else
             {
-                <img width="120" src="@Url.Content("~/fotos/players/" + System.IO.Path.GetFileName(Model.photo_path))" alt="" />
+                <img width="60" src="@Url.Content("~/fotos/coaches/" + System.IO.Path.GetFileName(Model.photo_path))" alt="" />
             }
-        </dd>
+            <h4>@Model.player_name</h4>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Team.team_name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Team.team_name)
-        </dd>
-    </dl>
+        <div class="form-horizontal d-flex flex-column gap-3 mt-3">
+            <div class="form-group">
+                @Html.LabelFor(model => model.player_name, "Name", htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.EditorFor(model => model.player_name, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.position, "Coaching License", htmlAttributes: new { @class = "control -label col-md-2" })
+                @Html.EditorFor(model => model.position, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.birthdate, "Birthdate", htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.EditorFor(model => model.birthdate, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Team.team_name, "Team", htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.EditorFor(model => model.Team.team_name, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+            </div>
+        </div>
+    </div>
 
     @using (Html.BeginForm("DelPlayer", "Player", FormMethod.Post))
     {
@@ -59,9 +49,9 @@
         <!-- Hidden field for player_id -->
         @Html.HiddenFor(model => model.player_id)
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-danger" /> |
-            @Html.ActionLink("Back to List", "PlayerList")
+        <div class="form-actions no-color d-flex align-items-center gap-2 mt-4">
+            <input type="submit" value="Delete" class="btn btn-danger" />
+            @Html.ActionLink("Back to List", "PlayerList", null, new { @class = "btn btn-primary" })
         </div>
     }
 </div>

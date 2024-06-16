@@ -8,16 +8,16 @@
     <div class="form-group mt-2 mb d-flex align-items-center gap-4">
         @if (Model.photo_path == null || String.IsNullOrEmpty(Model.photo_path))
         {
-            <img width="60" src="@Url.Content("~/fotos/coachs/no-logo.png")" alt="" />
+            <img width="60" src="@Url.Content("~/fotos/coaches/no-logo.png")" alt="" />
         }
         else
         {
-            <img width="60" src="@Url.Content("~/fotos/coachs/" + System.IO.Path.GetFileName(Model.photo_path))" alt="" />
+            <img width="60" src="@Url.Content("~/fotos/coaches/" + System.IO.Path.GetFileName(Model.photo_path))" alt="" />
         }
         <h4>@Model.trainer_name details</h4>
     </div>
 
-    <div class="form-horizontal d-flex flex-column gap-3">
+    <div class="form-horizontal d-flex flex-column gap-3 mt-3">
         <div class="form-group">
             @Html.LabelFor(model => model.trainer_name, "Name", htmlAttributes: new { @class = "control-label col-md-2" })
             @Html.EditorFor(model => model.trainer_name, new { htmlAttributes = new { @class = "form-control", @readonly = true } })

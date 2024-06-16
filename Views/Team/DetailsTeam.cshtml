@@ -18,7 +18,7 @@
         <h4>@Model.team_name details</h4>
     </div>
 
-    <div class="form-horizontal d-flex flex-column gap-3">
+    <div class="form-horizontal d-flex flex-column gap-3 mt-3">
         <div class="form-group">
             @Html.LabelFor(model => model.team_name, "Name", htmlAttributes: new { @class = "control-label col-md-2" })
             @Html.EditorFor(model => model.team_name, new { htmlAttributes = new { @class = "form-control", @readonly = true } })

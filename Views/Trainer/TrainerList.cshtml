@@ -42,7 +42,7 @@
                 },
                 "processing": true,
                 "filter": true,
-                "lengthMenu": [[3, 5, 10, 25, 50, -1], [3, 5, 10, 25, 50, "Todos"]],
+                "lengthMenu": [[3, 5, 10, 25, 50, -1], [3, 5, 10, 25, 50, "All"]],
                 "pageLength": 5,
                 "ajax": {
                     'url': "/Trainer/GetTrainers",
@@ -60,9 +60,9 @@
                         "autowidth": true,
                         "render": function (data, type, row) {
                             if (data == null || data == "") {
-                                return '<img width="50" src="@Url.Content("~/fotos/coachs/no-coach.jpg")" alt="No Logo" />';
+                                return '<img width="50" src="@Url.Content("~/fotos/coaches/no-coach.jpg")" alt="No Logo" />';
                             } else {
-                                return '<img width="50" src="@Url.Content("~/fotos/coachs/")' + data + '" alt="Team Logo" />';
+                                return '<img width="50" src="@Url.Content("~/fotos/coaches/")' + data + '" alt="Team Logo" />';
                             }
                         }
 
