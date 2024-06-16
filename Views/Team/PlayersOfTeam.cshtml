@@ -1,0 +1,76 @@
+﻿@model IEnumerable<Maio11_Best.Models.player>
+
+@{
+    ViewBag.Title = "PlayersOfTeam";
+}
+
+
+<h4 class="mt-5">Players in the team</h4>
+@if (User.Identity.IsAuthenticated && Model.Any())
+{
+    <div class="mb-2">
+        @Html.ActionLink("Export to Excel", "ExportToExcel", "Player", null, new { @class = "icon-button btn btn-success fa fa-file-excel-o" })
+    </div>
+}
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info" role="alert">
+        No players found in this team.
+    </div>
+}
+else
+{
+    <table class="table table-responsive table-bordered table-striped">
+        <tr class="text-center">
+            <th>Id</th>
+            <th>Name</th>
+            <th>Photo</th>
+            <th>Position</th>
+            <th>Birthdate</th>
+            <th>Team</th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.player_id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.player_name)
+                </td>
+                <td>
+                    @if (item.photo_path == null || String.IsNullOrEmpty(item.photo_path))
+                    {
+                        <img width="50" src="@Url.Content("~/fotos/players/no-player.jpg")" alt="" />
+                    }
+                    else
+                    {
+                        <img width="50" src="@Url.Content("~/fotos/players/" + System.IO.Path.GetFileName(item.photo_path))" alt="" />
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.position)
+                </td>
+                <td>
+                    @item.birthdate.Value.ToString("yyyy-MM-dd")
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Team.team_name)
+                </td>
+                <td class="actions-row">
+                    @Html.ActionLink("Details", "DetailsPlayer", "Player", new { id = item.player_id }, new { @class = "icon-button btn btn-secondary fa fa-eye" })
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        @Html.ActionLink("Edit", "EditPlayer", "Player", new { id = item.player_id }, new { @class = "icon-button btn btn-primary fa fa-pencil" })
+                        @Html.ActionLink("Delete", "DeletePlayer", "Player", new { id = item.player_id }, new { @class = "icon-button btn btn-danger fa fa-trash" })
+                    }
+                </td>
+            </tr>
+        }
+
+    </table>
+
+}

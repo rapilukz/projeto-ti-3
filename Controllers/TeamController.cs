@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using PagedList;
 using OfficeOpenXml;
+using System.Data.Entity;
 
 namespace Maio11_Best.Controllers
 {
@@ -49,6 +50,15 @@ namespace Maio11_Best.Controllers
             {
                 Team newTeam = new Team();
                 return View(newTeam);
+            }
+        }
+
+        public ActionResult PlayersOfTeam(int id)
+        {
+            using (DbModel db = new DbModel())
+            {
+                List<player> players = db.players.Include(p => p.Team).Where(a => a.team_id == id).ToList();
+                return PartialView(players);
             }
         }
 

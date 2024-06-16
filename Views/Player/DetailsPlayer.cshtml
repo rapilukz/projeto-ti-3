@@ -1,65 +1,61 @@
 ﻿@model Maio11_Best.Models.player
 
 @{
-    ViewBag.Title = "DetailsPlayer";
+    string formattedBirthdate = Model.birthdate.Value.ToString("yyyy-MM-dd");
 }
 
-<h2>DetailsPlayer</h2>
-
 <div>
-    <h4>player</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.player_name)
-        </dt>
+    <div class="form-group mt-2 mb d-flex align-items-center gap-4">
+        @if (Model.photo_path == null || String.IsNullOrEmpty(Model.photo_path))
+        {
+            <img width="60" src="@Url.Content("~/fotos/coachs/no-logo.png")" alt="" />
+        }
+        else
+        {
+            <img width="60" src="@Url.Content("~/fotos/coachs/" + System.IO.Path.GetFileName(Model.photo_path))" alt="" />
+        }
+        <h4>@Model.player_name details</h4>
+    </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.player_name)
-        </dd>
+    <div class="form-horizontal d-flex flex-column gap-3">
+        <div class="form-group">
+            @Html.LabelFor(model => model.player_name, "Name", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.EditorFor(model => model.player_name, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.position)
-        </dt>
+        <div class="form-group">
+            @Html.LabelFor(model => model.position, "Coaching License", htmlAttributes: new { @class = "control -label col-md-2" })
+            @Html.EditorFor(model => model.position, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.position)
-        </dd>
+        <div class="form-group">
+            @Html.LabelFor(model => model.birthdate, "Birthdate", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.EditorFor(model => model.birthdate, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.birthdate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.birthdate)
-        </dd>
-
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Team.team_name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Team.team_name)
-        </dd>
-
-        <dt>
-            Photo
-        </dt>
-
-        <dd>
-            @if (Model.photo_path == null || String.IsNullOrEmpty(Model.photo_path))
-            {
-                <img width="120" src="@Url.Content("~/fotos/players/no-logo.png")" alt="" />
-            }
-            else
-            {
-                <img width="120" src="@Url.Content("~/fotos/players/" + System.IO.Path.GetFileName(Model.photo_path))" alt="" />
-            }
-        </dd>
-
-    </dl>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Team.team_name, "Team", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.EditorFor(model => model.Team.team_name, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Back to List", "PlayerList")
-</p>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    var birthdateValue = '@Html.Raw(formattedBirthdate)';
+
+    if (birthdateValue) {
+        var date = new Date(birthdateValue);
+        if (!isNaN(date)) {
+            var formattedDate = date.toISOString().split('T')[0]; // Format as yyyy-MM-dd
+            document.getElementById('birthdate').value = formattedDate;
+        } else {
+            console.error('Invalid date format:', birthdateValue);
+        }
+    }
+    });
+</script>
+
+<div class="mt-4">
+    @Html.ActionLink("Back to List", "PlayerList", null, new { @class="btn btn-primary" })
+</div>

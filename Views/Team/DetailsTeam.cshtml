@@ -4,53 +4,42 @@
     ViewBag.Title = "DetailsTeam";
 }
 
-<h2>DetailsTeam</h2>
 
 <div>
-    <h4>Team</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.team_name)
-        </dt>
+    <div class="form-group mt-2 mb d-flex align-items-center gap-4">
+        @if (Model.photo_path == null || String.IsNullOrEmpty(Model.photo_path))
+        {
+            <img width="60" src="@Url.Content("~/fotos/teams/no-logo.png")" alt="" />
+        }
+        else
+        {
+            <img width="60" src="@Url.Content("~/fotos/teams/" + System.IO.Path.GetFileName(Model.photo_path))" alt="" />
+        }
+        <h4>@Model.team_name details</h4>
+    </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.team_name)
-        </dd>
+    <div class="form-horizontal d-flex flex-column gap-3">
+        <div class="form-group">
+            @Html.LabelFor(model => model.team_name, "Name", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.EditorFor(model => model.team_name, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.foundation_year)
-        </dt>
+        <div class="form-group">
+            @Html.LabelFor(model => model.foundation_year, "Founded in", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.EditorFor(model => model.foundation_year, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.foundation_year)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.country)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.country)
-        </dd>
-
-        <dt>
-            Photo
-        </dt>
-
-        <dd>
-            @if (Model.photo_path == null || String.IsNullOrEmpty(Model.photo_path))
-            {
-                <img width="120" src="@Url.Content("~/fotos/teams/no-logo.png")" alt="" />
-            }
-            else
-            {
-                <img width="120" src="@Url.Content("~/fotos/teams/" + System.IO.Path.GetFileName(Model.photo_path))" alt="" />
-            }
-        </dd>
-
-    </dl>
+        <div class="form-group">
+            @Html.LabelFor(model => model.country, "Country", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.EditorFor(model => model.country, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Back to List", "TeamList")
-</p>
+
+@{ 
+    Html.RenderAction("PlayersOfTeam", new { id = Model.team_id });
+}
+
+<div class="mt-4">
+    @Html.ActionLink("Back to List", "TeamList", null, new { @class="btn btn-primary" })
+</div>

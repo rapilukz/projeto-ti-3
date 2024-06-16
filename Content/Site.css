@@ -119,3 +119,10 @@ td {
     max-width: 80px;
     border-radius: 50%;
 }
+
+input:read-only, input:read-only:focus {
+    background-color: #f0f0f0; /* Light grey background */
+    color: #888; /* Grey text color */
+    border: 2px solid #ccc; /* Grey border */
+    cursor: not-allowed; /* Not-allowed cursor */
+}

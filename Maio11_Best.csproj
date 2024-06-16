@@ -524,7 +524,6 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Team\TeamList.cshtml" />
-    <Content Include="Views\Player\PlayerList.cshtml" />
     <Content Include="Views\Team\InsertTeam.cshtml" />
     <Content Include="Views\Player\DeletePlayer.cshtml" />
     <Content Include="Views\Player\EditPlayer.cshtml" />
@@ -538,6 +537,8 @@
     <Content Include="Views\Trainer\DetailsTrainer.cshtml" />
     <Content Include="Views\Team\DetailsTeam.cshtml" />
     <Content Include="Views\Player\DetailsPlayer.cshtml" />
+    <Content Include="Views\Team\PlayersOfTeam.cshtml" />
+    <Content Include="Views\Player\PlayerList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
